@@ -1,0 +1,28 @@
+body {
+  background-color: #e0e9f3;
+  margin: 0 !important;
+  height: auto;
+}
+
+
+table tbody,
+button,
+input,
+select,
+label,
+.input-group-text {
+  font-size: 12 !important;
+}
+table {
+  width: 100%;
+}
+table thead {
+  font-size: 13 !important;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+button {
+  margin: 1px !important;
+}
