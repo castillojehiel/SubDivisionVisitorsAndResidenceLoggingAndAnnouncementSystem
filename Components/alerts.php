@@ -5,16 +5,16 @@
 		top : 0;
 		left: 50%;
 		transform: translateX(-50%);
-		padding:20;
-		width:400;
-		margin: 10 0 0 ;
+		padding:20px;
+		width:400px;
+		margin: 10px 0 0 ;
 		display:none;
 	}
 </style>
 
 <div id="divMsg" class="card shadow-lg">
 	<legend style="font-size:18; font-weight:500; color:white"></legend>
-	<hr style="margin: 0 0 5 0"/>
+	<hr style="margin: 0 0 5px 0"/>
 	<label style="color:white"></label>
 </div>
 

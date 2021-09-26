@@ -4,44 +4,28 @@
 
 
 <div id="sideNavBody">
-	<img src="Resources/Images/FiestaHomesLogo.png" style="width:80%; display:block; margin:0 auto"  />
+	<img src="Resources/Images/FiestaHomesLogo.png" style="width:80%; display:block; margin:10px auto 10px auto"  />
 	<h6 style="color:white; text-align:center">Fiesta Homes Gate Pass and Announcement System</h6>
 	<hr style="margin: 20; border-color:white"/>
 
 	<div style="min-height:300; overflow: auto">
-	<ul class="navigationV" style="background:transparent; ">
-		<li>
-			<a href="dashboard.php"> <i class="fas fa-home"></i> Dashboard</a>
-		</li>
-		<li>
-			<a href="items.php"> <i class="fas fa-tag"></i> Items</a>
-		</li>
-		<li>
-			<a href="employees.php"> <i class="fas fa-user"></i> Accounts</a>
-		</li>
-		<li>
-			<a href="customers.php"> <i class="fas fa-users"></i> Customers</a>
-		</li>
-		<li>
-			<a href="suppliers.php"> <i class="fas fa-truck"></i> Suppliers</a>
-		</li>
-		<li>
-			<a href="purchaseorder.php"> <i class="fas fa-shopping-cart"></i> Purchase Order</a>
-		</li>
-		<li>
-			<a href="inventory.php"> <i class="fas fa-dolly-flatbed"></i> Inventory</a>
-		</li>
-		<li>
-			<a href="maintenance.php"> <i class="fas fa-users-cog"></i> Maintenance</a>
-		</li>
-		<li>
-			<a href="sales.php"> <i class="fas fa-cash-register"></i> Sales</a>
-		</li>
-		<li>
-			<a href="reports.php"> <i class="fas fa-file"></i> Reports</a>
-		</li>
-
-	</ul>
+		<ul class="navigationV" style="background:transparent; ">
+			<li>
+				<a href="dashboard.php"> <i class="fas fa-home"></i> Dashboard</a>
+			</li>
+			<li>
+				<a href="households.php"> <i class="fas fa-house-user"></i> Households</a>
+			</li>
+			<li>
+				<a href="residents.php"> <i class="fas fa-users"></i> Residents</a>
+			</li>
+			<li>
+				<a href="maintenance.php"> <i class="fas fa-users"></i> Visitors</a>
+			</li>
+			<li>
+				<a href="maintenance.php"> <i class="fas fa-tools"></i> Maintenance</a>
+			</li>
+		</ul>
 	</div>
 
 	<div style="position:relative; bottom:0; height:150; width:250">
