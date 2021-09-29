@@ -1,6 +1,6 @@
 <?php
     require '../Connection.php';
-    $keyword = $_POST["txtSearch"];
+    $ID = $_GET["DataCenterID"];
 
     $query = "SELECT 
                     dc.DataCenterID,
@@ -15,10 +15,6 @@
                     dc.HouseHoldID,
                     dc.QRCode,
                     dc.isActive,
-                    CASE 
-                        WHEN dc.isActive = 1 THEN 'Active'
-                        ELSE 'Inactive'
-                        END as RecordStatus,
                     dc.isResident,
                     GetDataCenterCompleteName(dc.CreatedBy) as CreatedBy,
                     dc.CreatedDateTime,
@@ -29,12 +25,10 @@
                 FROM DataCenter dc
                 LEFT JOIN HouseHolds h
                     ON dc.HouseHoldID = h.HouseHoldID
-                WHERE   dc.isResident = 1 
-                        AND dc.isActive = 1
-                        AND CONCAT(dc.FirstName, ' ', dc.LastName) LIKE '%$keyword%'
+                WHERE   dc.DataCenterID = '$ID'
                 ";
     $sql = $conn -> query($query);
-    $data = $sql -> fetch_all(MYSQLI_ASSOC);
+    $data = $sql -> fetch_assoc();
 
     echo json_encode($data); 
 

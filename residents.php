@@ -36,12 +36,13 @@
     <div class="row">
         <table id="tblList" class="table table-condensed table-striped table-bordered">
 			<thead class="thead-dark">
-				<th width="auto">Action</th>
+				<th width="150px">Action</th>
 				<th>HouseHold</th>
 				<th>Name</th>
 				<th>Gender</th>
 				<th>Birthdate</th>
 				<th>Contact No</th>
+				<th>Status</th>
 				<th>Created By</th>
 				<th>Created Date Time</th>
 				<th>Updated By</th>
@@ -184,16 +185,313 @@
 		</div>
 	</div>
   </div>
+
+<div class="modal fade" id="mdlEditResident" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Update Resident</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="frmEditResident">
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>First Name:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtFirstName" class="form-control" />
+								<input type="hidden" name="txtID" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Middle Name:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtMiddleName" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Last Name:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtLastName" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Suffix:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtSuffix" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Birthdate:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="date" name="txtBirthdate" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Gender:</label>
+							</div>
+							<div class="col-lg-10">
+								<div style ="display:inline-block">
+									<input type="radio" name="txtGender" value="Male" />
+									<label>Male</label>
+									<input type="radio" name="txtGender" value="Female" />
+									<label>Female</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Contact No:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtContactNo" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Email Address:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="email" name="txtEmailAddress" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-10 offset-2">
+								<input type="checkbox" name="chkIsActive" />
+								<label>is Active</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="submit" form="frmEditResident" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+  </div>
+
+  <div class="modal fade" id="mdlViewResident" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">View Resident</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="frmViewResident">
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>First Name:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtFirstName" class="form-control" readonly />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Middle Name:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtMiddleName" class="form-control" readonly />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Last Name:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtLastName" class="form-control" readonly />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Suffix:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtSuffix" class="form-control" readonly />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Birthdate:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="date" name="txtBirthdate" class="form-control" readonly />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Gender:</label>
+							</div>
+							<div class="col-lg-10">
+								<div style ="display:inline-block">
+									<input type="radio" name="txtGender" value="Male" readonly />
+									<label>Male</label>
+									<input type="radio" name="txtGender" value="Female" readonly />
+									<label>Female</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Contact No:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtContactNo" class="form-control" readonly />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Email Address:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="email" name="txtEmailAddress" class="form-control" readonly />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-10 offset-2">
+								<input type="checkbox" name="chkIsActive" readonly />
+								<label>is Active</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+  </div>
 <!-- End of Modals -->
 
 <script defer="true">
     $(document).ready( function(){
 		setTimeout( function(){
 			$("#frmSearch").trigger('submit');
-			$("#mdlNewResident").modal('show');
 		}, 500);
 
 		//-----------------------------
+
+		$("#tblList").on('click', '.btnView', function(){
+			let ID = $(this).parent().parent().prop("id");
+			let url = "API/Residents/GetDataCenterByID.php?DataCenterID=" + ID;
+			$.get(url, function(res){
+				if(res != null || res != undefined){
+					let $frm = $("#frmViewResident");
+					$frm.find("input[name=chkIsActive]").prop('checked', res.isActive);
+					$frm.find("input[name=txtFirstName]").val(res.FirstName);
+					$frm.find("input[name=txtMiddleName]").val(res.MiddleName);
+					$frm.find("input[name=txtLastName]").val(res.LastName);
+					$frm.find("input[name=txtSuffix]").val(res.Suffix);
+					$frm.find("input[name=txtBirthdate]").val(res.BirthDate);
+					$frm.find("input[name=txtContactNo]").val(res.ContactNo);
+					$frm.find("input[name=txtEmailAddress]").val(res.EmailAddress);
+					$frm.find("input[name=txtGender]").filter('[value='+res.Gender+']').prop('checked', true);
+
+					$("#mdlViewResident").modal('show');
+				}
+				else{
+					msgPopUp("Record not found", "Requested record could not be found in the database.", "warning");
+				}
+			}, 'json')
+			.fail( function(xhr, status, message){
+				msgPopUp("Error has occured", message, "danger");
+			});
+		});
+
+
+		$("#frmEditResident").submit( function(event){
+			event.preventDefault();
+			let frmData = $(this).serialize();
+			let url = "API/Residents/UpdateResidentDetails.php";
+			$.post(url, frmData, function(res){
+				if(res.result){
+					msgPopUp("Saved!",  "Resident record has been successfully saved.", "success");
+					$(".modal").modal('hide');
+				}
+				else{
+					msgPopUp("Error!",  "Failed to save resident record.", "warning");
+				}
+			}, 'json')
+			.fail( function(xhr, status, message){
+				msgPopUp("Error has occured", message, "danger");
+			});
+		})
+
+		$("#tblList").on('click', '.btnEdit', function(){
+			let ID = $(this).parent().parent().prop("id");
+			let url = "API/Residents/GetDataCenterByID.php?DataCenterID=" + ID;
+			$.get(url, function(res){
+				if(res != null || res != undefined){
+					let $frm = $("#frmEditResident");
+					$frm.find("input[name=txtID]").val(ID);
+					$frm.find("input[name=chkIsActive]").prop('checked', res.isActive);
+					$frm.find("input[name=txtFirstName]").val(res.FirstName);
+					$frm.find("input[name=txtMiddleName]").val(res.MiddleName);
+					$frm.find("input[name=txtLastName]").val(res.LastName);
+					$frm.find("input[name=txtSuffix]").val(res.Suffix);
+					$frm.find("input[name=txtBirthdate]").val(res.BirthDate);
+					$frm.find("input[name=txtContactNo]").val(res.ContactNo);
+					$frm.find("input[name=txtEmailAddress]").val(res.EmailAddress);
+					$frm.find("input[name=txtGender]").filter('[value='+res.Gender+']').prop('checked', true);
+
+					$("#mdlEditResident").modal('show');
+				}
+				else{
+					msgPopUp("Record not found", "Requested record could not be found in the database.", "warning");
+				}
+			}, 'json')
+			.fail( function(xhr, status, message){
+				msgPopUp("Error has occured", message, "danger");
+			});
+		});
 
 		$("#frmNewResident").submit( function(event){
 			event.preventDefault();
@@ -202,6 +500,7 @@
 			$.post(url, frmData, function(res){
 				if(res.result){
 					msgPopUp("Saved!",  "New resident record has been successfully saved.", "success");
+					$(".modal").modal('hide');
 				}
 				else{
 					msgPopUp("Error!",  "Failed to save new resident record.", "warning");
@@ -210,6 +509,11 @@
 			.fail( function(xhr, status, message){
 				msgPopUp("Error has occured", message, "danger");
 			});
+		});
+
+		$("#btnNew").click( function(){
+			$("#frmNewResident").trigger('reset');
+			$("#mdlNewResident").modal('show');
 		})
 
 		$("#frmSearch").submit( function(event){
@@ -224,13 +528,13 @@
 				$.each(res, function(index, value){
 					$tbl.append(
 						`
-						<tr>
+						<tr id="`+ value.DataCenterID +`">
 							<td>
-								<button class="btn btn-primary">
+								<button class="btn btn-primary btnView">
 									<span class="fas fa-eye" ></span>
 									View
 								</button>
-								<button class="btn btn-warning">
+								<button class="btn btn-warning btnEdit">
 									<span class="fas fa-edit" ></span>
 									Edit
 								</button>
@@ -240,6 +544,7 @@
 							<td>`+ value.Gender +`</td>
 							<td>`+ value.BirthDate+`</td>
 							<td>`+ value.ContactNo +`</td>
+							<td>`+ value.RecordStatus +`</td>
 							<td>` + value.CreatedBy + `</td>
 							<td>` + value.CreatedDateTime + `</td>
 							<td>` + (value.UpdatedBy == undefined ? '' : value.UpdatedBy) + `</td>

@@ -34,7 +34,7 @@
     //build qr code
     $qrCode = "RES" . sprintf('%08d', $id);
 
-    $query = "UPDATE DataCenter WHERE DataCenterID = '$id'";
+    $query = "UPDATE DataCenter SET QRCode = '$qrCode' WHERE DataCenterID = '$id'";
     $sql2 = $conn -> query($query);
 
     echo json_encode(array("result" => $sql));
