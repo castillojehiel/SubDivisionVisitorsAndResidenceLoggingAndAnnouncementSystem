@@ -20,10 +20,19 @@
 				<a href="residents.php"> <i class="fas fa-users"></i> Residents</a>
 			</li>
 			<li>
-				<a href="maintenance.php"> <i class="fas fa-users"></i> Visitors</a>
+				<a href="visitors.php"> <i class="fas fa-users"></i> Visitors</a>
+			</li>
+			<li>
+				<a href="#"> <i class="fas fa-car"></i> Vehicle Registration</a>
 			</li>
 			<li>
 				<a href="maintenance.php"> <i class="fas fa-tools"></i> Maintenance</a>
+			</li>
+			<li>
+				<a href="reports.php"> <i class="fas fa-flag"></i> Reports</a>
+			</li>
+			<li>
+				<a href="annoucements.php"> <i class="fas fa-comments"></i> Announcements</a>
 			</li>
 		</ul>
 	</div>
