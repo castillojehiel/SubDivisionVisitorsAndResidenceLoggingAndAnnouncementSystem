@@ -3,6 +3,14 @@
     include 'sidenav.php';
 ?>
 
+<style>
+	@media print {
+		@page {
+			margin: 0; 
+		}
+	}
+</style>
+
 <div class="mainContent" >
 
     <h2 class="page-title"><span class="fas fa-users"> </span> Residents</h2>
@@ -310,6 +318,24 @@
 				<form id="frmViewResident">
 					<div class="form-group m-3">
 						<div class="row">
+							<div class="col-lg-3">
+								<div id="QRCodeParent">
+									<div id="cvsQrCode">
+	
+									</div>
+									<h6 id="lblQRCodeValue"></h6>
+								</div>
+							</div>
+							<div class="col-lg-9">
+								<button id="btnPrintQRCode" type="button" class="btn btn-primary">
+									<span class="fas fa-print"></span>
+									Print QR Code
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
 							<div class="col-lg-2">
 								<label>First Name:</label>
 							</div>
@@ -419,6 +445,14 @@
 
 		//-----------------------------
 
+		$("#btnPrintQRCode").click( function(){
+			$("#QRCodeParent").printThis({
+				importCSS : false,
+				importStyle : true,
+				canvas : true
+			});
+		});
+
 		$("#tblList").on('click', '.btnView', function(){
 			let ID = $(this).parent().parent().prop("id");
 			let url = "API/Residents/GetDataCenterByID.php?DataCenterID=" + ID;
@@ -434,7 +468,12 @@
 					$frm.find("input[name=txtContactNo]").val(res.ContactNo);
 					$frm.find("input[name=txtEmailAddress]").val(res.EmailAddress);
 					$frm.find("input[name=txtGender]").filter('[value='+res.Gender+']').prop('checked', true);
-
+					$("#cvsQrCode").qrcode({
+						text : res.QRCode,
+						width : 150,
+						height : 150
+					});
+					$("#lblQRCodeValue").html(res.QRCode);
 					$("#mdlViewResident").modal('show');
 				}
 				else{

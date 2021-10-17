@@ -4,6 +4,8 @@
   
 <script src="js/jquery_3.6.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.qrcode.min.js"></script>
+<script src="js/printThis.js"></script>
 
 <?php
     include 'utils.php';
