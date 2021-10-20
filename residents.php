@@ -193,6 +193,7 @@
 		</div>
 	</div>
   </div>
+</div>
 
 <div class="modal fade" id="mdlEditResident" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -306,6 +307,7 @@
 		</div>
 	</div>
   </div>
+</div>
 
   <div class="modal fade" id="mdlViewResident" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">

@@ -124,4 +124,14 @@ CREATE TABLE ResidentReports(
 	CreatedDateTime DATETIME,
 	UpdatedBy INT(11), 
 	UpdatedDateTime DATETIME
+);
+
+CREATE TABLE ReportTypes ( 
+    ReportTypeID INT(11) AUTO_INCREMENT PRIMARY KEY,
+    Description VARCHAR(512),
+    isActive BIT,
+    CreatedBy INT(11), 
+	CreatedDateTime DATETIME,
+	UpdatedBy INT(11), 
+	UpdatedDateTime DATETIME
 )
