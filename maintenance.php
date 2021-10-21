@@ -13,6 +13,9 @@
 				<li class="nav-item maintenanceItem" id="maintenanceReportTypes">
 					<a class="nav-link active " href="#">Report Types</a>
 				</li>
+				<li class="nav-item maintenanceItem" id="maintenanceAnnouncementTypes">
+					<a class="nav-link " href="#">Announcement Types</a>
+				</li>
 				
 			</ul>
 		</div>
@@ -99,6 +102,83 @@
 </div>
 <!-- End of Report Type modals -->
 
+
+<!-- Report Announcement modals -->
+<div class="modal fade" id="mdlNewAnnouncementType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">New Announcement Type</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="frmNewAnnouncementType">
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Description:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtDescription" class="form-control" />
+								<input type="hidden" name="txtID" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-10 offset-2">
+								<input type="checkbox" name="chkIsActive" checked="checked" />
+								<label>is Active</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="submit" form="frmNewAnnouncementType" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="mdlEditAnnouncementType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Edit Announcement Type</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="frmEditAnnouncementType">
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Description:</label>
+							</div>
+							<div class="col-lg-10">
+								<input type="text" name="txtDescription" class="form-control" />
+								<input type="hidden" name="txtID" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-10 offset-2">
+								<input type="checkbox" name="chkIsActive" />
+								<label>is Active</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="submit" form="frmEditAnnouncementType" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End of Announcement Type modals -->
 <script defer="true">
 $(document).ready(function(){
     $(".maintenanceItem").click( function(){
@@ -111,6 +191,9 @@ $(document).ready(function(){
         switch(id){
             case "maintenanceReportTypes" :
                 url = "maintenance_reporttype.php";
+                break;
+				case "maintenanceAnnouncementTypes" :
+                url = "maintenance_announcementtype.php";
                 break;
             default :
                 url = "";

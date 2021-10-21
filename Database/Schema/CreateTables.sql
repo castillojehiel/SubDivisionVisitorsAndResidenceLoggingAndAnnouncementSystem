@@ -134,4 +134,33 @@ CREATE TABLE ReportTypes (
 	CreatedDateTime DATETIME,
 	UpdatedBy INT(11), 
 	UpdatedDateTime DATETIME
-)
+);
+
+CREATE TABLE AnnouncementTypes ( 
+    ATID INT(11) AUTO_INCREMENT PRIMARY KEY,
+    Description VARCHAR(512),
+    isActive BIT,
+    CreatedBy INT(11), 
+	CreatedDateTime DATETIME,
+	UpdatedBy INT(11), 
+	UpdatedDateTime DATETIME
+);
+
+CREATE TABLE Announcements(
+    AnnouncementID INT(11) AUTO_INCREMENT PRIMARY KEY,
+    ATID INT,
+    Title VARCHAR(512),
+    Details VARCHAR(4000),
+    isActive BIT,
+    isPublished BIT,
+    PublishedBy INT(11),
+    PublishedDateTime DATETIME,
+    UnpublishedBy INT(11),
+    UnpublishedDateTime DATETIME,
+    ExpiryDate DATE,
+    CreatedBy INT(11), 
+	CreatedDateTime DATETIME,
+	UpdatedBy INT(11), 
+	UpdatedDateTime DATETIME
+    FOREIGN KEY (ATID) References AnnouncementTypes(ATID)
+);

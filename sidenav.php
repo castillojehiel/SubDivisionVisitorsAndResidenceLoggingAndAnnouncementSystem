@@ -32,7 +32,7 @@
 				<a href="reports.php"> <i class="fas fa-flag"></i> Reports</a>
 			</li>
 			<li>
-				<a href="annoucements.php"> <i class="fas fa-comments"></i> Announcements</a>
+				<a href="announcements.php"> <i class="fas fa-comments"></i> Announcements</a>
 			</li>
 		</ul>
 	</div>
