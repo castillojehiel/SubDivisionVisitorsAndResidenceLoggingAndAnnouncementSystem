@@ -34,9 +34,28 @@
                     UpdatedDateTime = CURRENT_TIMESTAMP
                 WHERE DataCenterID = '$ID'
             ";
-
     $sql = $conn -> query($query);
+    
+    //check if datacenter has user account if yes update user account details
+    $query1 = "UPDATE useraccount 
+                SET
+                    FirstName = '$FirstName', 
+                    MiddleName = '$MiddleName', 
+                    LastName = '$LastName', 
+                    Suffix = '$Suffix', 
+                    Gender = '$Gender', 
+                    Birthdate = '$Birthdate',  
+                    ContactNo = '$ContactNo',  
+                    EmailAddress = '$EmailAddress', 
+                    isActive = '$isActive',  
+                    UpdatedBy = '$UpdatedBy',  
+                    UpdatedDateTime = CURRENT_TIMESTAMP
+                WHERE DataCenterID = '$ID'
+            ";
+    $conn -> query($query1);
 
+    
+    //parse return value
     echo json_encode(array("result" => $sql));
 
 	$conn -> close();
