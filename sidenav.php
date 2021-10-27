@@ -34,6 +34,9 @@
 			<li>
 				<a href="announcements.php"> <i class="fas fa-comments"></i> Announcements</a>
 			</li>
+			<li>
+				<a href="users.php"> <i class="fas fa-users-cog"></i> User Accounts</a>
+			</li>
 		</ul>
 	</div>
 

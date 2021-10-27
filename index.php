@@ -4,13 +4,13 @@
 
 <style>
 #mainCard{
-	width:500;
+	width:500px;
 	height: auto;
 	top:2vh;
 	margin: auto;
 	background : rgba(255,255,255,0.7);
 	display:block;
-	padding:20;
+	padding:20px;
 	text-align:center;
 }
 </style>

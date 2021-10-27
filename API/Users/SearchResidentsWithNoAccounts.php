@@ -34,10 +34,13 @@
                 FROM DataCenter dc
                 LEFT JOIN HouseHolds h
                     ON dc.HouseHoldID = h.HouseHoldID
+                LEFT JOIN Useraccount ua
+                    ON dc.DataCenterID = ua.DataCenterID
                 WHERE   dc.isResident = 1 
                         AND dc.isActive = 1
                         AND CONCAT(dc.FirstName, ' ', dc.LastName) LIKE '%$keyword%'
                         AND dc.isActive = (CASE WHEN '$isShowAll' = 1 THEN dc.isActive ELSE 1 END)
+                        AND ua.UserID IS NULL
                 ";
     $sql = $conn -> query($query);
     $data = $sql -> fetch_all(MYSQLI_ASSOC);
