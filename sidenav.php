@@ -1,5 +1,12 @@
 <?php
 	include 'dependency.php';
+	if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+
+	if(!isset($_SESSION["UserID"])){
+		header("Location:index.php");
+	}
 ?>
 
 
@@ -21,9 +28,6 @@
 			</li>
 			<li>
 				<a href="visitors.php"> <i class="fas fa-users"></i> Visitors</a>
-			</li>
-			<li>
-				<a href="#"> <i class="fas fa-car"></i> Vehicle Registration</a>
 			</li>
 			<li>
 				<a href="maintenance.php"> <i class="fas fa-tools"></i> Maintenance</a>

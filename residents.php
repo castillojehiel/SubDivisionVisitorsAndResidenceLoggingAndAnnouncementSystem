@@ -470,6 +470,7 @@
 					$frm.find("input[name=txtContactNo]").val(res.ContactNo);
 					$frm.find("input[name=txtEmailAddress]").val(res.EmailAddress);
 					$frm.find("input[name=txtGender]").filter('[value='+res.Gender+']').prop('checked', true);
+					$("#cvsQrCode").html("");
 					$("#cvsQrCode").qrcode({
 						text : res.QRCode,
 						width : 150,

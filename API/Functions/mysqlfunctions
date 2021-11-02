@@ -9,3 +9,8 @@ RETURN (SELECT CONCAT('Alias','.',`COLUMN_NAME`)  as ColumnNames
         WHERE `TABLE_SCHEMA`='fiestahomesdb' 
                 AND `TABLE_NAME`='TableName'
         )
+
+
+CREATE FUNCTION GetUserCompleteName(ID INT) 
+RETURNS VARCHAR(512) DETERMINISTIC
+RETURN (SELECT CONCAT(FirstName, ' ', MiddleName, ' ', LastName) as UserCompleteName FROM useraccount WHERE UserID = `ID`)

@@ -26,7 +26,7 @@
                     rr.UpdatedDateTime,
                     rt.Description as ReportType,
                     CASE 
-                        WHEN ReportStatus = 'REJECT' OR ReportStatus = 'RESOLVED' THEN false
+                        WHEN ReportStatus = 'REJECT' OR ReportStatus = 'RESOLVED' OR ReportStatus = 'ACKNOWLEDGE' THEN false
                         ELSE true
                     END as isAllowUpdateStatus
                 FROM residentreports rr

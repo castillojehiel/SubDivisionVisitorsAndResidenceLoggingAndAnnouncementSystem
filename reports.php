@@ -360,7 +360,7 @@
                                             <span class="fas fa-eye"></span>
                                             View
                                         </button>
-                                        <button class="btn btn-warning btnUpdateStatus" hidden="`+(!value.isAllowUpdateStatus)+`">
+                                        <button class="btn btn-warning btnUpdateStatus" style="display:`+(parseInt(value.isAllowUpdateStatus) > 0 ? "block" : "none")+`">
                                             <span class="fas fa-edit"></span>
                                             Update Status
                                         </button>

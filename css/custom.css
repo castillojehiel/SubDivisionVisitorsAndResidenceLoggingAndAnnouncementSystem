@@ -57,6 +57,8 @@
     min-height: 100vh;
     display: inline-block;
     overflow: hidden;
+    position: fixed;
+    left: 0;
   }
   
   .navigationV li a {
