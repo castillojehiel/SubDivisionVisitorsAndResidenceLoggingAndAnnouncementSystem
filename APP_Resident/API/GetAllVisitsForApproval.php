@@ -2,6 +2,7 @@
     require 'Connection.php';
     $ID = $_GET["ID"];
     $query = "  SELECT
+                    vl.VLID,
                     vl.VisitorID ,
                     dc.FirstName,
                     dc.MiddleName,
@@ -29,6 +30,7 @@
                     ON vl.VisitorID = dc.DataCenterID
                 WHERE   vl.HouseHoldID = '$ID'
                         AND IFNULL(isApproved,0) = 0
+                        AND vl.isActive = 1
                         AND ( CONVERT(RequestDateTime, DATE) = CONVERT(CURRENT_TIMESTAMP, DATE) )
                 GROUP BY vl.VisitorID 
                 ORDER BY vl.RequestDateTime ASC          

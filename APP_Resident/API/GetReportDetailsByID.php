@@ -1,6 +1,6 @@
 <?php
-    require '../Connection.php';
-    $keyword = $_POST["txtSearch"];
+    require 'Connection.php';
+    $ID = $_GET["ReportID"];
 
     $query = "SELECT
                     rr.ReportID, 
@@ -26,20 +26,16 @@
                     rr.UpdatedDateTime,
                     rt.Description as ReportType,
                     CASE 
-                        WHEN ReportStatus = 'REJECT' OR ReportStatus = 'RESOLVED'  THEN false
+                        WHEN ReportStatus = 'REJECT' OR ReportStatus = 'RESOLVED' OR ReportStatus = 'ACKNOWLEDGE' THEN false
                         ELSE true
                     END as isAllowUpdateStatus
                 FROM residentreports rr
                 LEFT JOIN reporttypes rt
                     ON rr.ReportTypeID = rt.ReportTypeID
-                WHERE   (
-                            CONCAT('REP', ReportID) LIKE '%$keyword%'
-                            OR
-                            GetDataCenterCompleteName(rr.CreatedBy) LIKE '%$keyword%'
-                        )
+                WHERE   rr.ReportID = '$ID'
                 ";
     $sql = $conn -> query($query);
-    $data = $sql -> fetch_all(MYSQLI_ASSOC);
+    $data = $sql -> fetch_assoc();
 
     echo json_encode($data);
 

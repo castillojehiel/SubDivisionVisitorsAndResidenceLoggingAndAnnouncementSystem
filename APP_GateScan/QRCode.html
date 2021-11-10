@@ -99,7 +99,7 @@
                     let indicator = decodedText.substring(0,3);
                     if(indicator == "RES"){
                         //resident
-                        let url = localStorage.getItem('APIURL') + "/API/InsertNewResidentGateLog.php";
+                        let url = localStorage.getItem('APIURL_GateScan') + "/API/InsertNewResidentGateLog.php";
                         let obj = JSON.parse(localStorage.getItem("UserObj"));
                         let data = {QRCode : decodedText, ScannedByUser : obj.UserID};
 
@@ -119,7 +119,7 @@
                         //visitor
                         html5QrcodeScanner.clear();
                         $("#divVisitorForm").slideDown();    
-                        let url = localStorage.getItem('APIURL') + "/API/GetVisitorDetailsByQR.php";
+                        let url = localStorage.getItem('APIURL_GateScan') + "/API/GetVisitorDetailsByQR.php";
                         let data = {QRCode : decodedText};
                         $.post(url, data, function(res){
                             let $frm = $("#frmVisitorForm");

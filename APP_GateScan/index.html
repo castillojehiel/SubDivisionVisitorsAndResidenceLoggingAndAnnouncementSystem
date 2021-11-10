@@ -47,7 +47,8 @@
     <div id="loginForm">
         <div id="mainCard" >
             <img src="Images/FiestaHomesLogo.png" style="width:50%; margin:0 auto; display:block"/>
-            <h2>Fiesta Homes Gate Pass and Announcement System</h2>
+            <h2>Fiesta Homes Management System</h2>
+            <h6><i>Personnel App</i></h6>
             <hr>
             <form id="frmLogin" style="width:80%; margin:auto" >
                 <div class="mb-3">
@@ -215,7 +216,7 @@
                 return;
             }
 
-            let url = localStorage.getItem('APIURL') + "/API/ChangeUserCredentials.php";
+            let url = localStorage.getItem('APIURL_GateScan') + "/API/ChangeUserCredentials.php";
             let data = $(this).serializeArray();
             let obj = JSON.parse(localStorage.getItem("UserObj"));
             data.push({name : "UserID", value : obj.UserID});
@@ -244,7 +245,7 @@
         $("#main").on('click', '#tblVisitorsLog .btnViewVisitorLog', function(){
             let ID = $(this).parent().parent().prop("id");
             loadViewVisitorLogDetailsPage();
-            let url = localStorage.getItem('APIURL') + "/API/GetVisitorLogDetailsByID.php?VLID="+ID;
+            let url = localStorage.getItem('APIURL_GateScan') + "/API/GetVisitorLogDetailsByID.php?VLID="+ID;
             $.get(url, function(res){
                 let $frm = $("#frmVisitDetailsForm");
                 $frm.find("input[name=txtDateOfVisit]").val(res.RequestDateTime);
@@ -262,7 +263,7 @@
 
         $("#main").on('submit', '#frmSearchVisitorLog', function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/GetUserVisitorLogs.php";
+            let url = localStorage.getItem('APIURL_GateScan') + "/API/GetUserVisitorLogs.php";
             let data = $(this).serializeArray();
             let obj = JSON.parse(localStorage.getItem("UserObj"));
             data.push({name : "UserID", value : obj.UserID});
@@ -299,13 +300,24 @@
 
         $("#main").on('submit', '#frmVisitorForm', function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/InsertVisitorGatePassApplication.php";
+            let url = localStorage.getItem('APIURL_GateScan') + "/API/InsertVisitorGatePassApplication.php";
             let data = $(this).serializeArray();
             let obj = JSON.parse(localStorage.getItem("UserObj"));
             data.push({name: "ScannedByUser", value : obj.UserID});
             $.post(url, data, function(res){
                 if(res.result){
-                    alert("Visitor gate pass application has been saved. Please wait for confirmation of household.")
+                    if(res.isWhiteListed == false && res.isBlackListed == false)
+                    {
+                        alert("Visitor gate pass application has been saved. Please wait for confirmation of household.")
+                    }
+                    else if(res.isWhiteListed == true){
+                        alert("Visitor was whitelisted by household for visitation. Please allow gate access.")
+                    }
+                    else if(res.isBlackListed == true){
+                        alert("Visitor was blacklisted by household for visitation. Please do not allow gate access.")
+                    }   
+
+
                     loadHomepage();
                 }
                 else{
@@ -327,7 +339,7 @@
 
         $("#frmSearchHousehold").submit( function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/SearchHousehold.php";
+            let url = localStorage.getItem('APIURL_GateScan') + "/API/SearchHousehold.php";
             let data = $(this).serialize();
             $.post(url, data, function(res){
                 let $tbl = $("#tblHouseHoldList tbody");
@@ -390,7 +402,7 @@
 
         $("#frmLogin").submit( function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/Userlogin.php";
+            let url = localStorage.getItem('APIURL_GateScan') + "/API/Userlogin.php";
             let data = $(this).serialize();
             $.post(url, data, function(res){
                 if(res != undefined){
@@ -410,11 +422,11 @@
 
         $("#frmChangeConnection").submit( function(event){
             event.preventDefault();
-            localStorage.setItem("APIURL", $("#frmChangeConnection input[name=txtURL]").val());
+            localStorage.setItem("APIURL_GateScan", $("#frmChangeConnection input[name=txtURL]").val());
             $(".modal").modal('hide');
         });
         $("#btnChangeConnection").click( function(){
-            $("#frmChangeConnection input[name=txtURL]").val(localStorage.getItem("APIURL"))
+            $("#frmChangeConnection input[name=txtURL]").val(localStorage.getItem("APIURL_GateScan"))
             $("#mdlChangeConnection").modal('show');
         });
 

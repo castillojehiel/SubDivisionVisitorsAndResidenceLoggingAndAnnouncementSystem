@@ -42,6 +42,14 @@
             padding:20px;
             text-align:center;
         }
+
+        .btnVisitorShowOptions{
+            padding: 0 !important;
+            width: 15px !important;
+            height: 30px !important;
+            float: right !important;
+            text-align: center !important
+        }
     </style>
 
     <div id="loginForm">
@@ -52,11 +60,11 @@
             <form id="frmLogin" style="width:80%; margin:auto" >
                 <div class="mb-3">
                     <label for="" style="float:left">Username:</label>
-                    <input type="text" class="form-control" name="txtUsername" required value="dev1" >
+                    <input type="text" class="form-control" name="txtUsername" required value="RES00000008" >
                 </div>
                 <div class="mb-3">
                     <label for="" style="float:left">Password:</label>
-                    <input type="password" class="form-control" name="txtPassword" required value="dev1" >
+                    <input type="password" class="form-control" name="txtPassword" required value="admin" >
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" style="width: 200px;">
@@ -75,7 +83,7 @@
         </div>
     </div>
 
-    <div id="main" class="row">
+    <div id="main" class="row" style="padding: 10px 0 0 0 ;">
 
     </div>
     <nav id="navMain" class="nav nav-pills fixed-bottom nav-fill">
@@ -134,7 +142,7 @@
 								<label>Report Type:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtReportType" class="form-control" />
+								<input type="text" name="txtReportType" class="form-control" readonly />
 							</div>
 						</div>
 					</div>
@@ -144,7 +152,7 @@
 								<label>Status:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtReportStatus" class="form-control" />
+								<input type="text" name="txtReportStatus" class="form-control" readonly />
 							</div>
 						</div>
 					</div>
@@ -154,7 +162,7 @@
 								<label>Reported By:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtReportedBy" class="form-control" />
+								<input type="text" name="txtReportedBy" class="form-control" readonly />
 							</div>
 					</div>
                     <div class="form-group m-3">
@@ -163,7 +171,7 @@
 								<label>Report Date/Time:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtReportedDateTime" class="form-control" />
+								<input type="text" name="txtReportedDateTime" class="form-control" readonly />
 							</div>
 						</div>
 					</div>
@@ -171,7 +179,7 @@
                     <div class="form-group m-3">
 						<div class="row">
                             <label>Report Details: </label>
-                            <textarea name="txtReportDetails" class="form-control" style="min-height:200px; font-size:13px; margin:10px 0 0 0 "></textarea>
+                            <textarea name="txtReportDetails" readonly class="form-control" style="min-height:200px; font-size:13px; margin:10px 0 0 0 "></textarea>
 						</div>
 					</div>
                     <hr>
@@ -181,7 +189,7 @@
 								<label>Acknowledged By:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtAcknowledgedBy" class="form-control" />
+								<input type="text" name="txtAcknowledgedBy" class="form-control" readonly />
 							</div>
 						</div>
 					</div>
@@ -191,14 +199,14 @@
 								<label>Acknowledgement Date/Time:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtAcknowledgedDateTime" class="form-control" />
+								<input type="text" name="txtAcknowledgedDateTime" class="form-control" readonly />
 							</div>
 						</div>
 					</div>
                     <div class="form-group m-3">
 						<div class="row">
                             <label>Acknowledgement Remarks: </label>
-                            <textarea name="txtAcknowledgedmentRemarks" class="form-control" style="min-height:200px; font-size:13px; margin:10px 0 0 0 "></textarea>
+                            <textarea name="txtAcknowledgedmentRemarks" readonly class="form-control" style="min-height:200px; font-size:13px; margin:10px 0 0 0 "></textarea>
 						</div>
 					</div>
                     <hr>
@@ -208,7 +216,7 @@
 								<label>Tagged Resolved By:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtTaggedResolvedBy" class="form-control" />
+								<input type="text" name="txtTaggedResolvedBy" class="form-control" readonly />
 							</div>
 						</div>
 					</div>
@@ -218,14 +226,14 @@
 								<label>Tagged Resolved Date/Time:</label>
 							</div>
 							<div class="col-8">
-								<input type="text" name="txtTaggedResolvedDateTime" class="form-control" />
+								<input type="text" name="txtTaggedResolvedDateTime" class="form-control" readonly />
 							</div>
 						</div>
 					</div>
                     <div class="form-group m-3">
 						<div class="row">
                             <label>Tagged Resolved Remarks: </label>
-                            <textarea name="txtTaggedResolvedRemarks" class="form-control" style="min-height:200px; font-size:13px; margin:10px 0 0 0 "></textarea>
+                            <textarea name="txtTaggedResolvedRemarks" readonly class="form-control" style="min-height:200px; font-size:13px; margin:10px 0 0 0 "></textarea>
 						</div>
 					</div>
 				</form>
@@ -235,6 +243,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <div class="modal fade" id="mdlNewReport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm">
@@ -266,9 +275,83 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" form="frmNewReport" class="btn btn-primary">Save changes</button>
+			    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="frmNewReport" class="btn btn-primary">Save changes</button>
 			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="modal fade" id="mdlEditReport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Edit Report</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="frmEditReport">
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-2">
+								<label>Report Type:</label>
+							</div>
+							<div class="col-10">
+                                <input type="hidden" name="txtID" />
+								<select name="cboTypes" class="form-select">
+                                </select>
+							</div>
+                            
+						</div>
+					</div>
+                    <div class="form-group m-3">
+						<div class="row">
+                            <label>Report Details: </label>
+                            <textarea name="txtReportDetails" class="form-control" style="min-height:200px; font-size:13px; margin:10px 0 0 0 "></textarea>
+						</div>
+					</div>
+                    <div class="form-group m-3">
+						<input type="checkbox" name="chkIsActive" />
+                        <label>is Active</label>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="frmEditReport" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="modal fade" id="mdlChangeCredentials" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Change Credentials</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="max-height: 400px !important;">
+                <form id="frmChangeUserCredentials">
+                    <div class="form-group m-3">
+                        <div class="row">
+                            <label>Password:</label>
+                            <input type="password" name="txtUserPass" class="form-control" required />
+                        </div>
+                        <div class="row">
+                            <label>Confirm Password:</label>
+                            <input type="password" name="txtUserPassConfirm" class="form-control" required />
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="frmChangeUserCredentials" class="btn btn-primary">Save changes</button>
+            </div>
 		</div>
 	</div>
 </div>
@@ -280,6 +363,359 @@
         let currentNavItemID = "";
         let UserObj = {};
         /////////////////
+
+        $("#main").on("click", "#btnRejectVisitation", function(){
+            let ID = $("#txtVLID").val();
+            let confirmuser = confirm("Are you sure you want to reject this visitation?");
+            if(confirmuser){
+                let url = localStorage.getItem('APIURL') + "/API/RejectVisitApplication.php";
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let data = {VLID : ID}
+                $.post(url, data, function(res){
+                    if(res.result){
+                        alert("Visit Application has been rejected");  
+                        loadHomepage();
+                    }
+                    else{
+                        alert("Failed to reject visit application.");
+                    }
+                }, 'json')
+                .fail( function(xhr, status, message){
+                    alert("Error has occured. " + message);
+                });
+            }
+        });
+
+        $("#main").on("click", "#btnApproveVisitApplication", function(){
+            let ID = $("#txtVLID").val();
+            let confirmuser = confirm("Are you sure you want to approve this visitation?");
+            if(confirmuser){
+                let url = localStorage.getItem('APIURL') + "/API/ApproveVisitApplication.php";
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let data = {VLID : ID, ApprovedBy: obj.DataCenterID}
+                $.post(url, data, function(res){
+                    if(res.result){
+                        alert("Visit Application has been approved");  
+                        loadHomepage();
+                    }
+                    else{
+                        alert("Failed to approve visit application.");
+                    }
+                }, 'json')
+                .fail( function(xhr, status, message){
+                    alert("Error has occured. " + message);
+                });
+            }
+        });
+
+        $("#main").on("click", '#listHouselHoldVisitorsForApproval .btnViewVisitApplication', function(){
+            let ID = $(this).parent().parent().parent().prop("id");
+            $.get("viewvisitapplication.html", function(data){
+                $("#main").html(data);
+                let url = localStorage.getItem('APIURL') + "/API/GetVisitApplicationDetailsByID.php?ID="+ID;
+                $.get(url, function(res){
+                    $("#lblVisitorName").html(res.VisitorName);
+                    $("#lblVisitDetails").html(res.ReasonForVisit);
+                    $("#txtVLID").val(ID);
+                }, 'json');
+            });
+        });
+
+        $("#main").on('click', '#visitorsListBlackListed .btnRemoveVistorFromBlackList', function(){
+            let $parent = $(this).parent().parent();
+            let VisitorID = $(this).prop("id");
+            let VisitorName = $(this).next().html();
+            let ID = $parent.prop("id");
+            let confirmuser = confirm("Are you sure you want to remove visitor from blacklist?");
+            let data = {VBID : ID};
+            let url = localStorage.getItem('APIURL') + "/API/RemoveVisitorFromBlackList.php";
+            $.post(url, data, function(res){
+                if(res.result){
+                        alert("Visitor has been removed from blacklist.");  
+                        $("#visitorsListOthers").append(`<li id="`+ VisitorID +`" class="list-group-item">
+                                                            <div class="row">
+                                                                <p class="visitorName col-11">`+ VisitorName +`</p>
+                                                                <button class="btn btn-link btnVisitorShowOptions col-1 m-0">
+                                                                    <span class="fas fa-ellipsis-v"></span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="row m-0 visitorOptions" style="display:none">
+                                                                <button class="btn btn-primary btnAddVisitorToWhiteList col-6 m-0" style="height:30px">
+                                                                    <span class="fas fa-plus"></span>
+                                                                    Whitelist
+                                                                </button>
+                                                                <button class="btn btn-secondary btnAddVisitorToBlackList col-6 m-0">
+                                                                    <span class="fas fa-plus"></span>
+                                                                    Blacklist
+                                                                </button>
+                                                            </div>
+                                                        </li>`);
+                        $parent.remove();
+                    }
+                    else{
+                        alert("Failed to remove visitor from blacklist.");
+                    }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        })
+
+        $("#main").on('click', '#visitorsListWhitelisted .btnRemoveVistorFromWhiteList', function(){
+            let $parent = $(this).parent().parent();
+            let VisitorID = $(this).prop("id");
+            let VisitorName = $(this).next().html();
+            let ID = $parent.prop("id");
+            let confirmuser = confirm("Are you sure you want to remove visitor from whitelist?");
+            let data = {VWID : ID};
+            let url = localStorage.getItem('APIURL') + "/API/RemoveVisitorFromWhiteList.php";
+            $.post(url, data, function(res){
+                if(res.result){
+                        alert("Visitor has been removed from whitelist.");  
+                        $("#visitorsListOthers").append(`<li id="`+ VisitorID +`" class="list-group-item">
+                                                            <div class="row">
+                                                                <p class="visitorName col-11">`+ VisitorName +`</p>
+                                                                <button class="btn btn-link btnVisitorShowOptions col-1 m-0">
+                                                                    <span class="fas fa-ellipsis-v"></span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="row m-0 visitorOptions" style="display:none">
+                                                                <button class="btn btn-primary btnAddVisitorToWhiteList col-6 m-0" style="height:30px">
+                                                                    <span class="fas fa-plus"></span>
+                                                                    Whitelist
+                                                                </button>
+                                                                <button class="btn btn-secondary btnAddVisitorToBlackList col-6 m-0">
+                                                                    <span class="fas fa-plus"></span>
+                                                                    Blacklist
+                                                                </button>
+                                                            </div>
+                                                        </li>`);
+                        $parent.remove();
+                    }
+                    else{
+                        alert("Failed to remove visitor from whitelist.");
+                    }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        })
+
+        $("#main").on('click', '#visitorsListOthers .btnAddVisitorToBlackList', function(){
+            let ID = $(this).parent().parent().prop("id");
+            let $parent = $(this).parent().parent();
+            let visitorName = $parent.find(".visitorName").html();
+            let confirmuser = confirm(`Are you sure you want to add this visitor to blacklist.`+
+                                        `They will be automatically blocked access on gate if intention is to visit your household.`)
+            if(confirmuser){
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let data = {CreatedBy : obj.DataCenterID, HouseHoldID : obj.HouseHoldID, VisitorID : ID};
+                let url = localStorage.getItem('APIURL') + "/API/AddVisitorToBlackList.php";
+                $.post(url, data, function(res){
+                    if(res.result){
+                        alert("Visitor has been added to blacklist.");  
+                        $("#visitorsListBlackListed").append(`<li id="`+ res.ID +`" class="list-group-item">
+                                                                <div class="row m-0">
+                                                                    <button id="`+ ID +`" class="btn btn-danger btnRemoveVistorFromBlackList col-1 m-0">
+                                                                        <span class="fas fa-window-close"></span>
+                                                                    </button>
+                                                                    <p class="visitorName col-11 m-0">`+ visitorName +`</p>
+                                                                </div>
+                                                            </li>`);
+                        $parent.remove();
+                    }
+                    else{
+                        alert("Failed to whitelist visitor.");
+                    }
+                }, 'json')
+                .fail( function(xhr, status, message){
+                    alert("Error has occured. " + message);
+                });
+            }
+        }); 
+
+        $("#main").on('click', '#visitorsListOthers .btnAddVisitorToWhiteList', function(){
+            let ID = $(this).parent().parent().prop("id");
+            let $parent = $(this).parent().parent();
+            let visitorName = $parent.find(".visitorName").html();
+            let confirmuser = confirm(`Are you sure you want to add this visitor to whitelist.`+
+                                        `You would no longer be asked for approval if visitor enters subdivision premises with intent to visit you.`)
+            if(confirmuser){
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let data = {CreatedBy : obj.DataCenterID, HouseHoldID : obj.HouseHoldID, VisitorID : ID};
+                let url = localStorage.getItem('APIURL') + "/API/AddVisitorToWhiteList.php?";
+                $.post(url, data, function(res){
+                    if(res.result){
+                        alert("Visitor has been added to whitelist.");  
+                        $("#visitorsListWhitelisted").append(`<li id="`+ res.ID +`" class="list-group-item">
+                                                <div class="row m-0">
+                                                    <button id="`+ ID +`" class="btn btn-danger btnRemoveVistorFromWhiteList col-1 m-0">
+                                                        <span class="fas fa-window-close"></span>
+                                                    </button>
+                                                    <p class="visitorName col-11 m-0">`+ visitorName +`</p>
+                                                </div>
+                                            </li>`);
+                        $parent.remove();
+                    }
+                    else{
+                        alert("Failed to whitelist visitor.");
+                    }
+                }, 'json')
+                .fail( function(xhr, status, message){
+                    alert("Error has occured. " + message);
+                });
+            }
+        }); 
+
+        $("#main").on('click', '#visitorsListOthers .btnVisitorShowOptions', function(){
+            $(this).parent().next().slideToggle();
+        }); 
+
+        $("#main").on('click', '#accordionExample .btnCollapseTrigger', function(){
+            let target = $(this).attr("data-target");
+            console.log(target);
+            $(""+target+"").collapse('toggle');
+        })
+
+        $("#main").on('click', '#lnkViewAllVisitors', function(){
+            $.get("viewallvisitors.html", function(data){
+                $("#main").html(data);
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let url = localStorage.getItem('APIURL') + "/API/GetHouseHoldVisitors.php?ID=" + obj.HouseHoldID ;
+                $.get(url, function(res){
+                    if(res.length > 0){
+                        let visitorMasterList = res;
+                        let visitorWhitelisted = res.filter(x => x.isWhiteListed == true);
+                        let visitorBlacklisted = res.filter(x => x.isBlackListed == true);
+                        let visitorNormalList = res.filter(x => x.isWhiteListed == false && x.isBlackListed == false);
+
+                        let listWL = $("#visitorsListWhitelisted");
+                        let listBL = $("#visitorsListBlackListed");
+                        let listOthers = $("#visitorsListOthers");
+                        listWL.html("");
+                        listBL.html("");
+                        listOthers.html("");
+
+                        console.log(visitorWhitelisted);
+                        console.log(visitorBlacklisted);
+                        console.log(visitorNormalList);
+
+                        $.each(visitorWhitelisted, function(indx, value){
+                            listWL.append(`<li id="`+ value.VWID +`" class="list-group-item">
+                                                 <div class="row m-0">
+                                                    <button id="`+ value.VisitorID+`" class="btn btn-danger btnRemoveVistorFromWhiteList col-1 m-0">
+                                                        <span class="fas fa-window-close"></span>
+                                                    </button>
+                                                    <p class="visitorName col-11 m-0">`+ value.VisitorName +`</p>
+                                                </div>
+                                            </li>`);
+                        });
+
+                        $.each(visitorBlacklisted, function(indx, value){
+                            listBL.append(`<li id="`+ value.VBID +`" class="list-group-item">
+                                                <div class="row m-0">
+                                                    <button id="`+ value.VisitorID+`" class="btn btn-danger btnRemoveVistorFromBlackList col-1 m-0">
+                                                        <span class="fas fa-window-close"></span>
+                                                    </button>
+                                                    <p class="visitorName col-11 m-0">`+ value.VisitorName +`</p>
+                                                </div>
+                                            </li>`);
+                        });
+
+                        $.each(visitorNormalList, function(indx, value){
+                            listOthers.append(`<li id="`+ value.VisitorID +`" class="list-group-item">
+                                                <div class="row">
+                                                    <p class="visitorName col-11">`+ value.VisitorName +`</p>
+                                                    <button class="btn btn-link btnVisitorShowOptions col-1 m-0">
+                                                        <span class="fas fa-ellipsis-v"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="row m-0 visitorOptions" style="display:none">
+                                                    <button class="btn btn-primary btnAddVisitorToWhiteList col-6 m-0" style="height:30px">
+                                                        <span class="fas fa-plus"></span>
+                                                        Whitelist
+                                                    </button>
+                                                    <button class="btn btn-secondary btnAddVisitorToBlackList col-6 m-0">
+                                                        <span class="fas fa-plus"></span>
+                                                        Blacklist
+                                                    </button>
+                                                </div>
+                                            </li>`);
+                        });
+                    }
+                    else{
+                        $("#listHouseHoldVisitors ul").html("No visitors...")
+                    }
+                }, 'json');
+            });
+        });
+        
+        $("#main").on('click', '#listRecentAnnouncements .btnViewRecentAnnouncement', function(){
+            let ID = $(this).parent().parent().parent().prop('id');
+            $.get("viewannouncements.html", function(data){
+                $("#main").html(data);
+                let url = "API/GetAnnouncementDetails.php?ID="+ID;
+                $.get(url, function(res){
+                    $("#announcementTitle").html(res.Title);
+                    $("#announcementType").html(res.AnnouncementType);
+                    $("#announcementDetails").html(res.Details);
+                }, 'json');
+            });
+        });
+
+        $("#frmChangeUserCredentials").submit( function(event){
+            event.preventDefault();
+            let pass = $("#frmChangeUserCredentials").find("input[name=txtUserPass]").val();
+            let passConfirm = $("#frmChangeUserCredentials").find("input[name=txtUserPassConfirm]").val();
+            if(pass != passConfirm){
+                alert("Passwords do not match.");
+                return;
+            }
+
+            let url = localStorage.getItem('APIURL') + "/API/ChangeUserCredentials.php";
+            let data = $(this).serializeArray();
+            let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+            data.push({name : "DataCenterID", value : obj.DataCenterID});
+            $.post(url, data, function(res){
+                if(res.result){
+                    alert("Credentials successfully updated.");
+                    $(".modal").modal('hide');
+                    location.reload();
+                }
+                else{
+                    alert("Failed to update credentials. " + res.message)
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+				alert("Error has occured. " + message);
+			});
+        });
+
+        $("#main").on('click', "#btnChangePassword", function(){
+            let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+            $("#frmChangeUserCredentials").trigger("reset");
+            $("#frmChangeUserCredentials").find("input[name=txtUserName]").val(obj.Username);
+            $("#mdlChangeCredentials").modal("show");
+        });
+        
+        $("#frmEditReport").submit( function(event){
+            event.preventDefault();
+            let url = localStorage.getItem('APIURL') + "/API/EditReport.php";
+            let data = $(this).serializeArray();
+            data.push({name:"ReporterID", value : UserObj.DataCenterID});
+            $.post(url, data, function(res){
+                if(res.result){
+					alert("Report has been successfully saved.");
+					$(".modal").modal('hide');
+				}
+				else{
+					alert("Failed to save new report.");
+				}
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured !" +  message);
+            });
+        });
 
         $("#frmNewReport").submit( function(event){
             event.preventDefault();
@@ -300,8 +736,39 @@
             });
         });
 
+        $("#main").on('click', '.reportItem .btnEditReport', function(){
+            let ID = $(this).parent().parent().parent().parent().prop('id');
+            let url = localStorage.getItem('APIURL') + "/API/GetReportDetailsByID.php?ReportID="+ID;
+            $.get(url, function(res){
+                let $frm = $("#frmEditReport");
+                $frm.find('select[name=cboTypes][value='+res.ReportTypeID+']').prop('selected', true);
+                $frm.find('textarea[name=txtReportDetails]').html(res.ReportDetails);
+                $frm.find('input[name=txtID]').val(res.ReportID);
+                $frm.find('input[name=chkIsActive]').prop('checked', res.isActive);
+                $("#mdlEditReport").modal('show');
+            }, 'json')
+        });
+
         $("#main").on('click', '.reportItem .btnViewReport', function(){
-            $("#mdlViewReport").modal('show');
+            let ID = $(this).parent().parent().parent().parent().prop('id');
+            
+            let url = localStorage.getItem('APIURL') + "/API/GetReportDetailsByID.php?ReportID="+ID;
+            $.get(url, function(res){
+                console.log(res);
+                let $frm = $("#frmViewReport");
+                $frm.find('input[name=txtReportType]').val(res.ReportType);
+                $frm.find('input[name=txtReportStatus]').val(res.ReportStatus);
+                $frm.find('input[name=txtReportedBy]').val(res.CreatedBy);
+                $frm.find('input[name=txtReportedDateTime]').val(res.CreatedDateTime);
+                $frm.find('textarea[name=txtReportDetails]').html(res.ReportDetails);
+                $frm.find('input[name=txtAcknowledgedBy]').val(res.AcknowledgedBy);
+                $frm.find('input[name=txtAcknowledgedDateTime]').val(res.AcknowledgedDateTime);
+                $frm.find('textarea[name=txtAcknowledgedmentRemarks]').html(res.ReportAcknowledgementRemarks);
+                $frm.find('input[name=txtTaggedResolvedBy]').val(res.ResolvedBy);
+                $frm.find('input[name=txtTaggedResolvedDateTime]').val(res.ResolvedDateTime);
+                $frm.find('textarea[name=txtTaggedResolvedRemarks]').html(res.ReportResolveRemarks);
+                $("#mdlViewReport").modal('show');
+            }, 'json')
         });
 
         $("#main").on('click', '#btnNewReport', function(){
@@ -371,6 +838,10 @@
                 currentNavItemID = id;
                 loadReportsPage();
             }
+            else if(id != currentNavItemID && id == "navItemProfile"){
+                currentNavItemID = id;
+                loadUserPage();
+            }
             $(".navMainItem").removeClass('active');
             $(this).addClass('active');
         });
@@ -382,6 +853,7 @@
             $.post(url, data, function(res){
                 if(res != undefined){
                     UserObj = res;
+                    localStorage.setItem("UserObj_Resident", JSON.stringify(res));
                     $("#loginForm").slideUp();
                     loadHomepage();
                 }
@@ -440,6 +912,34 @@
             });
         }
 
+        function loadUserPage(){
+            $.get("userpage.html", function(data){
+                $("#main").html(data);
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                console.log(obj);
+                let $frm = $("#frmUserDetailsPage");
+                $frm.find("input[name=txtUserCompleteName]").val(obj.ResidentName);
+                $frm.find("input[name=txtGender]").val(obj.Gender);
+                $frm.find("input[name=txtBirthdate]").val(obj.BirthDate);
+                $frm.find("input[name=txtContactNo]").val(obj.ContactNo);
+                $frm.find("input[name=txtEmailAddress]").val(obj.EmailAddress);
+                $frm.find("input[name=txtUsername]").val(obj.Username);
+                $frm.find("input[name=txtPassword]").val(obj.Userpass);
+                //load householdmembers
+                let url = localStorage.getItem('APIURL') + "/API/GetResidentHouseHoldMembers.php?DataCenterID=" + obj.DataCenterID;
+                $.get(url, function(res){
+                    let $list = $("#HouseHoldList");
+                    $list.html("");
+                    console.log(res);
+                    $.each(res, function(index, value){
+                        $list.append(`<li class="list-group-item">`+ value.HouseHoldMemberName +`</li>`)
+                    })
+                }, 'json')
+
+            })
+        }
+
+
         function loadRecentAnnouncements(){
             let url = localStorage.getItem('APIURL') + "/API/GetRecentAnnouncements.php";
             $.get(url, function(res){
@@ -453,7 +953,7 @@
                         <li id="`+ value.AnnouncementID +`" class="list-group-item">
                             <div class="row">
                                 <div class="col-2">
-                                    <button class="btn btn-primary">
+                                    <button class="btn btn-primary btnViewRecentAnnouncement">
                                         <span class="fas fa-eye"></span>
                                     </button>
                                 </div>
@@ -481,11 +981,16 @@
                     let $list = $("#listHouseHoldVisitors ul");
                     $list.html("");
                     $.each(res, function(indx, value){
-                        $list.append(`
-                        <li id="`+ value.VisitorID +`" class="list-group-item">
-                            `+ value.VisitorName +`
-                        </li>
+                        if(indx < 5){
+                            $list.append(`
+                                <li id="`+ value.VisitorID +`" class="list-group-item">
+                                    `+ value.VisitorName +`
+                                </li>
                             `);
+                        }
+                        else{
+                            return false;
+                        }
                     });
                 }
                 else{
@@ -504,10 +1009,10 @@
                     $list.html("");
                     $.each(res, function(indx, value){
                         $list.append(`
-                        <li id="`+ value.VisitorID +`" class="list-group-item">
+                        <li id="`+ value.VLID +`" class="list-group-item">
                             <div class="row">
                                 <div class="col-2">
-                                    <button class="btn btn-primary">
+                                    <button class="btn btn-primary btnViewVisitApplication">
                                         <span class="fas fa-eye"></span>
                                     </button>
                                 </div>
@@ -534,14 +1039,18 @@
                 $rptType.append(`<option value="0">All</option>`);
                 let $rptTypeForNewReport = $("#frmNewReport select[name=cboTypes]");
                 $rptTypeForNewReport.html("");
+                let $rptTypeForEditReport = $("#frmEditReport select[name=cboTypes]");
+                $rptTypeForEditReport.html("");
                 $.each(res, function(indx, value){
                     $rptType.append(`<option value="`+ value.ReportTypeID +`">`+ value.Description +`</option>`);
                     $rptTypeForNewReport.append(`<option value="`+ value.ReportTypeID +`">`+ value.Description +`</option>`);
+                    $rptTypeForEditReport.append(`<option value="`+ value.ReportTypeID +`">`+ value.Description +`</option>`);
                 });
 
             }, 'json');
         }
 
+        
     });
 </script>
 

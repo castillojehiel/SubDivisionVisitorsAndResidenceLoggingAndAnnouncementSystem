@@ -33,8 +33,7 @@
                     ON vl.ApprovedBy = app.DataCenterID
                 LEFT JOIN HouseHolds as hh
                     ON vl.HouseHoldID = hh.HouseHoldID
-                WHERE   vl.isActive = 1
-                        AND vl.ScannedBy = '$UserID'
+                WHERE   vl.ScannedBy = '$UserID'
                         AND (CONVERT(vl.RequestDatetime, DATE) >= CONVERT('$DateFrom', DATE) AND CONVERT(vl.RequestDatetime, DATE) <= CONVERT('$DateTo', DATE))
                         AND GetDataCenterCompleteName(vl.VisitorID) LIKE '%$keyword%'
         ";

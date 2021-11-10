@@ -12,7 +12,7 @@
 
 <div id="sideNavBody">
 	<img src="Resources/Images/FiestaHomesLogo.png" style="width:80%; display:block; margin:10px auto 10px auto"  />
-	<h6 style="color:white; text-align:center">Fiesta Homes Gate Pass and Announcement System</h6>
+	<h6 style="color:white; text-align:center">Fiesta Homes Management System</h6>
 	<hr style="margin: 20; border-color:white"/>
 
 	<div style="min-height:300; overflow: auto">

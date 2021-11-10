@@ -44,6 +44,7 @@
                         )
                         AND rr.ReportTypeID = (CASE WHEN '$Type' > 0 THEN '$Type' ELSE rr.ReportTypeID END)
                         AND (CONVERT(rr.CreatedDateTime, DATE) >= CONVERT('$DateFrom', DATE) AND CONVERT(rr.CreatedDateTime, DATE) <= CONVERT('$DateTo', DATE) )
+                        AND rr.isActive = 1
                 ";
     $sql = $conn -> query($query);
     $data = $sql -> fetch_all(MYSQLI_ASSOC);
