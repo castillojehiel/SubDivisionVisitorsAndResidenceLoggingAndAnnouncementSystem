@@ -55,7 +55,8 @@
     <div id="loginForm">
         <div id="mainCard" >
             <img src="Images/FiestaHomesLogo.png" style="width:50%; margin:0 auto; display:block"/>
-            <h2>Fiesta Homes Gate Pass and Announcement System</h2>
+            <h2>Fiesta Homes Management System</h2>
+            <h6><i>Resident App</i></h6>
             <hr>
             <form id="frmLogin" style="width:80%; margin:auto" >
                 <div class="mb-3">
@@ -364,11 +365,67 @@
         let UserObj = {};
         /////////////////
 
+        $("#main").on('submit', '#frmNewHouseHoldVehicle', function(event){
+            event.preventDefault();
+            let data = $(this).serialize();
+            let url = localStorage.getItem('APIURL_Resident') + "/API/AddHouseholdVehicle.php";
+            $.post(url, data, function(res){
+                if(res.result){
+                        alert("New household vehicle was successfully saved.");  
+                        loadUserPage();
+                    }
+                    else{
+                        alert("Failed save new record.");
+                    }
+            },'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        });
+
+        $("#main").on('click', '#btnAddHouseHoldVehicle', function(){
+            $.get("addhouseholdvehicle.html", function(data){
+                $("#main").html(data);
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let $frm = $("#frmNewHouseHoldVehicle");
+                $frm.find("input[name=txtCreatedBy]").val(obj.DataCenterID);
+                $frm.find("input[name=txtHouseHoldID]").val(obj.HouseHoldID);
+            });
+        });
+
+        $("#main").on('submit', '#frmNewHouseHoldMember', function(event){
+            event.preventDefault();
+            let data = $(this).serialize();
+            let url = localStorage.getItem('APIURL_Resident') + "/API/addhouseholdmember.php";
+            $.post(url, data, function(res){
+                if(res.result){
+                        alert("New household member was successfully saved.");  
+                        loadUserPage();
+                    }
+                    else{
+                        alert("Failed save new record.");
+                    }
+            },'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        });
+
+        $("#main").on('click', '#btnAddHouseHoldMember', function(){
+            $.get("addhouseholdmember.html", function(data){
+                $("#main").html(data);
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let $frm = $("#frmNewHouseHoldMember");
+                $frm.find("input[name=txtCreatedBy]").val(obj.DataCenterID);
+                $frm.find("input[name=txtHouseHoldID]").val(obj.HouseHoldID);
+            });
+        });
+
         $("#main").on("click", "#btnRejectVisitation", function(){
             let ID = $("#txtVLID").val();
             let confirmuser = confirm("Are you sure you want to reject this visitation?");
             if(confirmuser){
-                let url = localStorage.getItem('APIURL') + "/API/RejectVisitApplication.php";
+                let url = localStorage.getItem('APIURL_Resident') + "/API/RejectVisitApplication.php";
                 let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
                 let data = {VLID : ID}
                 $.post(url, data, function(res){
@@ -390,7 +447,7 @@
             let ID = $("#txtVLID").val();
             let confirmuser = confirm("Are you sure you want to approve this visitation?");
             if(confirmuser){
-                let url = localStorage.getItem('APIURL') + "/API/ApproveVisitApplication.php";
+                let url = localStorage.getItem('APIURL_Resident') + "/API/ApproveVisitApplication.php";
                 let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
                 let data = {VLID : ID, ApprovedBy: obj.DataCenterID}
                 $.post(url, data, function(res){
@@ -412,7 +469,7 @@
             let ID = $(this).parent().parent().parent().prop("id");
             $.get("viewvisitapplication.html", function(data){
                 $("#main").html(data);
-                let url = localStorage.getItem('APIURL') + "/API/GetVisitApplicationDetailsByID.php?ID="+ID;
+                let url = localStorage.getItem('APIURL_Resident') + "/API/GetVisitApplicationDetailsByID.php?ID="+ID;
                 $.get(url, function(res){
                     $("#lblVisitorName").html(res.VisitorName);
                     $("#lblVisitDetails").html(res.ReasonForVisit);
@@ -428,7 +485,7 @@
             let ID = $parent.prop("id");
             let confirmuser = confirm("Are you sure you want to remove visitor from blacklist?");
             let data = {VBID : ID};
-            let url = localStorage.getItem('APIURL') + "/API/RemoveVisitorFromBlackList.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/RemoveVisitorFromBlackList.php";
             $.post(url, data, function(res){
                 if(res.result){
                         alert("Visitor has been removed from blacklist.");  
@@ -468,7 +525,7 @@
             let ID = $parent.prop("id");
             let confirmuser = confirm("Are you sure you want to remove visitor from whitelist?");
             let data = {VWID : ID};
-            let url = localStorage.getItem('APIURL') + "/API/RemoveVisitorFromWhiteList.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/RemoveVisitorFromWhiteList.php";
             $.post(url, data, function(res){
                 if(res.result){
                         alert("Visitor has been removed from whitelist.");  
@@ -510,7 +567,7 @@
             if(confirmuser){
                 let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
                 let data = {CreatedBy : obj.DataCenterID, HouseHoldID : obj.HouseHoldID, VisitorID : ID};
-                let url = localStorage.getItem('APIURL') + "/API/AddVisitorToBlackList.php";
+                let url = localStorage.getItem('APIURL_Resident') + "/API/AddVisitorToBlackList.php";
                 $.post(url, data, function(res){
                     if(res.result){
                         alert("Visitor has been added to blacklist.");  
@@ -543,7 +600,7 @@
             if(confirmuser){
                 let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
                 let data = {CreatedBy : obj.DataCenterID, HouseHoldID : obj.HouseHoldID, VisitorID : ID};
-                let url = localStorage.getItem('APIURL') + "/API/AddVisitorToWhiteList.php?";
+                let url = localStorage.getItem('APIURL_Resident') + "/API/AddVisitorToWhiteList.php?";
                 $.post(url, data, function(res){
                     if(res.result){
                         alert("Visitor has been added to whitelist.");  
@@ -581,7 +638,7 @@
             $.get("viewallvisitors.html", function(data){
                 $("#main").html(data);
                 let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
-                let url = localStorage.getItem('APIURL') + "/API/GetHouseHoldVisitors.php?ID=" + obj.HouseHoldID ;
+                let url = localStorage.getItem('APIURL_Resident') + "/API/GetHouseHoldVisitors.php?ID=" + obj.HouseHoldID ;
                 $.get(url, function(res){
                     if(res.length > 0){
                         let visitorMasterList = res;
@@ -672,7 +729,7 @@
                 return;
             }
 
-            let url = localStorage.getItem('APIURL') + "/API/ChangeUserCredentials.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/ChangeUserCredentials.php";
             let data = $(this).serializeArray();
             let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
             data.push({name : "DataCenterID", value : obj.DataCenterID});
@@ -700,7 +757,7 @@
         
         $("#frmEditReport").submit( function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/EditReport.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/EditReport.php";
             let data = $(this).serializeArray();
             data.push({name:"ReporterID", value : UserObj.DataCenterID});
             $.post(url, data, function(res){
@@ -719,7 +776,7 @@
 
         $("#frmNewReport").submit( function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/CreateNewReport.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/CreateNewReport.php";
             let data = $(this).serializeArray();
             data.push({name:"ReporterID", value : UserObj.DataCenterID});
             $.post(url, data, function(res){
@@ -738,7 +795,7 @@
 
         $("#main").on('click', '.reportItem .btnEditReport', function(){
             let ID = $(this).parent().parent().parent().parent().prop('id');
-            let url = localStorage.getItem('APIURL') + "/API/GetReportDetailsByID.php?ReportID="+ID;
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetReportDetailsByID.php?ReportID="+ID;
             $.get(url, function(res){
                 let $frm = $("#frmEditReport");
                 $frm.find('select[name=cboTypes][value='+res.ReportTypeID+']').prop('selected', true);
@@ -752,7 +809,7 @@
         $("#main").on('click', '.reportItem .btnViewReport', function(){
             let ID = $(this).parent().parent().parent().parent().prop('id');
             
-            let url = localStorage.getItem('APIURL') + "/API/GetReportDetailsByID.php?ReportID="+ID;
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetReportDetailsByID.php?ReportID="+ID;
             $.get(url, function(res){
                 console.log(res);
                 let $frm = $("#frmViewReport");
@@ -777,7 +834,7 @@
 
         $("#main").on('submit', '#frmSearchReports', function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/GetResidentReports.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetResidentReports.php";
             let data = $(this).serializeArray();
             data.push({name : "ResidentID", value : UserObj.DataCenterID});
             console.log(data);
@@ -848,7 +905,7 @@
 
         $("#frmLogin").submit( function(event){
             event.preventDefault();
-            let url = localStorage.getItem('APIURL') + "/API/Userlogin.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/Userlogin.php";
             let data = $(this).serialize();
             $.post(url, data, function(res){
                 if(res != undefined){
@@ -862,17 +919,17 @@
                 }
             }, 'json')
             .fail( function(xhr, status, message){
-				msgPopUp("Error has occured", message, "danger");
-			});
+                alert("Error has occured. " + message);
+            });
         });
 
         $("#frmChangeConnection").submit( function(event){
             event.preventDefault();
-            localStorage.setItem("APIURL", $("#frmChangeConnection input[name=txtURL]").val());
+            localStorage.setItem("APIURL_Resident", $("#frmChangeConnection input[name=txtURL]").val());
             $(".modal").modal('hide');
         });
         $("#btnChangeConnection").click( function(){
-            $("#frmChangeConnection input[name=txtURL]").val(localStorage.getItem("APIURL"))
+            $("#frmChangeConnection input[name=txtURL]").val(localStorage.getItem("APIURL_Resident"))
             $("#mdlChangeConnection").modal('show');
         });
 
@@ -925,8 +982,14 @@
                 $frm.find("input[name=txtEmailAddress]").val(obj.EmailAddress);
                 $frm.find("input[name=txtUsername]").val(obj.Username);
                 $frm.find("input[name=txtPassword]").val(obj.Userpass);
+
+                if(!obj.isHouseHoldContactPerson){
+                    $("#btnAddHouseHoldMember").hide();
+                    $("#btnAddHouseHoldVehicle").hide();
+                }
+
                 //load householdmembers
-                let url = localStorage.getItem('APIURL') + "/API/GetResidentHouseHoldMembers.php?DataCenterID=" + obj.DataCenterID;
+                let url = localStorage.getItem('APIURL_Resident') + "/API/GetResidentHouseHoldMembers.php?DataCenterID=" + obj.DataCenterID;
                 $.get(url, function(res){
                     let $list = $("#HouseHoldList");
                     $list.html("");
@@ -936,12 +999,23 @@
                     })
                 }, 'json')
 
+                //load household vehicles
+                url = localStorage.getItem('APIURL_Resident') + "/API/GetHouseholdVehicles.php?ID=" + obj.HouseHoldID;
+                $.get(url, function(res){
+                    let $list = $("#VehiclesList");
+                    $list.html("");
+                    console.log(res);
+                    $.each(res, function(index, value){
+                        $list.append(`<li class="list-group-item">`+ value.Model +` | `+ value.PlateNumber +`</li>`)
+                    })
+                }, 'json')
+
             })
         }
 
 
         function loadRecentAnnouncements(){
-            let url = localStorage.getItem('APIURL') + "/API/GetRecentAnnouncements.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetRecentAnnouncements.php";
             $.get(url, function(res){
                 console.log(res);
                 if(res.length > 0){
@@ -973,7 +1047,7 @@
         }
 
         function loadHouseHoldVisitors(){
-            let url = localStorage.getItem('APIURL') + "/API/GetHouseHoldVisitors.php?ID=" + UserObj.HouseHoldID ;
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetHouseHoldVisitors.php?ID=" + UserObj.HouseHoldID ;
             $.get(url, function(res){
                 console.log(res);
                 if(res.length > 0){
@@ -1000,7 +1074,7 @@
         }
 
         function loadHouseHoldVisitsForApproval(){
-            let url = localStorage.getItem('APIURL') + "/API/GetAllVisitsForApproval.php?ID=" + UserObj.HouseHoldID ;
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetAllVisitsForApproval.php?ID=" + UserObj.HouseHoldID ;
             $.get(url, function(res){
                 console.log(res);
                 if(res.length > 0){
@@ -1031,7 +1105,7 @@
         }
 
         function loadReportTypes(){ 
-            let url = localStorage.getItem('APIURL') + "/API/GetReportTypes.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetReportTypes.php";
             let data = {txtSearch : ""};
             $.post(url, data, function(res){
                 let $rptType = $("#frmSearchReports select[name=cboTypes]");
