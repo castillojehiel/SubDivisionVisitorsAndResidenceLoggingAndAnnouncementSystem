@@ -1,4 +1,5 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
 
     $WhiteListID = $_POST["VWID"];

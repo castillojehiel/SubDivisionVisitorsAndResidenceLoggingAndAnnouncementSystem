@@ -1,4 +1,5 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
     $ID = $_POST["txtID"];
     $ReporterID = $_POST["ReporterID"];

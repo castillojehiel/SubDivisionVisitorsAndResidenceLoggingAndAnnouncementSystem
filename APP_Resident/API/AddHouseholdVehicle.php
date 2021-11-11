@@ -1,4 +1,5 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
     $CreatedBy = $_POST["txtCreatedBy"];
     $HouseHoldID = $_POST["txtHouseHoldID"];

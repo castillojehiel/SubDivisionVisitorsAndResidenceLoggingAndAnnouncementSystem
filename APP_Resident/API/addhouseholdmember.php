@@ -1,4 +1,5 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
     $FirstName = $_POST["txtFirstName"];
     $MiddleName = $_POST["txtMiddleName"];

@@ -1,4 +1,5 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
     $QRCode = $_POST["QRCode"];
     $Scanner = $_POST["ScannedByUser"];
