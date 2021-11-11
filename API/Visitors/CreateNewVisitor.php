@@ -13,7 +13,7 @@
 		$CreatedBy = $_SESSION["UserID"];
     }
 
-    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime)
+    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime, Userpass)
         VALUES(
                 '$FirstName',
                 '$MiddleName',
@@ -26,7 +26,8 @@
                 1,
                 0,
                 '$CreatedBy',
-                CURRENT_TIMESTAMP()
+                CURRENT_TIMESTAMP(),
+                '0'
         )";
 
     $sql = $conn -> query($query);

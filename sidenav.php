@@ -17,12 +17,10 @@
 
 	<div style="min-height:300; overflow: auto">
 		<ul class="navigationV" style="background:transparent; ">
-			<li>
+			<!-- <li>
 				<a href="dashboard.php"> <i class="fas fa-home"></i> Dashboard</a>
-			</li>
-			<li>
-				<a href="households.php"> <i class="fas fa-house-user"></i> Households</a>
-			</li>
+			</li> -->
+			
 			<li>
 				<a href="residents.php"> <i class="fas fa-users"></i> Residents</a>
 			</li>
@@ -30,7 +28,7 @@
 				<a href="visitors.php"> <i class="fas fa-users"></i> Visitors</a>
 			</li>
 			<li>
-				<a href="maintenance.php"> <i class="fas fa-tools"></i> Maintenance</a>
+				<a href="households.php"> <i class="fas fa-house-user"></i> Households</a>
 			</li>
 			<li>
 				<a href="reports.php"> <i class="fas fa-flag"></i> Reports</a>
@@ -40,6 +38,9 @@
 			</li>
 			<li>
 				<a href="users.php"> <i class="fas fa-users-cog"></i> User Accounts</a>
+			</li>
+			<li>
+				<a href="maintenance.php"> <i class="fas fa-tools"></i> Maintenance</a>
 			</li>
 		</ul>
 	</div>
@@ -59,7 +60,7 @@
 <script>
 	$(document).ready(function(){
 		$("#btnLogout").click( function(){
-			let url = "API/Accounts/Logout.php";
+			let url = "API/Users/Logout.php";
 			$.get(url, function(res){
 				window.location.href = "index.php";
 			}, 'json');

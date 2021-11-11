@@ -25,6 +25,7 @@
   }
   table tbody {
     max-height: calc(100vh-200px);
+    background: rgba(255, 255, 255,0.8);
   }
   table tbody,
   button,
@@ -106,6 +107,9 @@
     right: 0;
     padding: 10px;
     overflow: auto;
+    background: url("../Resources/Images/bg1_faded.png");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
   .page-title {

@@ -18,7 +18,7 @@
 <body style="background:url('Resources/Images/bg1.jpg'); background-size:cover">
 	<div class="card" id="mainCard" >
 		<img src="Resources/Images/FiestaHomesLogo.png" style="width:50%; margin:0 auto; display:block"/>
-		<h2>Fiesta Homes Gate Pass and Announcement System</h2>
+		<h2>Web and Mobile based <br>Fiesta Homes Management System</h2>
 		<hr>
 		<form id="frmLogin" style="width:80%; margin:auto" >
 			<div class="mb-3">
@@ -51,7 +51,7 @@
 			$.post(url, data, function(res){
 				if(res != undefined){
 					if(res.UserID > 0){
-						window.location.href = "dashboard.php";
+						window.location.href = "residents.php";
 					}
 					else 
 						msgPopUp("Login Failed.", "Failed to login account. Please recheck credentials and try again", "warning");
