@@ -1,7 +1,6 @@
 <?php
     require '../Connection.php';
     $ID = $_POST["txtID"];
-    $isActive = $_POST["chkIsActive"];
     $FirstName = $_POST["txtFirstName"];
     $MiddleName = $_POST["txtMiddleName"];
     $LastName = $_POST["txtLastName"];
@@ -14,9 +13,9 @@
 	if(isset($_SESSION["UserID"])){
 		$UpdatedBy = $_SESSION["UserID"];
     }
-    $isActive = true;
-    if(isset($POST["chkIsActive"])){
-		$isActive = $POST["chkIsActive"];
+    $isActive = false;
+    if(isset($_POST["chkIsActive"])){
+		$isActive = $_POST["chkIsActive"];
 	}
 
     $query = "UPDATE Datacenter 

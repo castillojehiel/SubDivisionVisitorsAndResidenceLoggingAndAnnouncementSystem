@@ -7,6 +7,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.qrcode.min.js"></script>
     <script src="js/printThis.js"></script>
+    <script src="js/reImg.js"></script>
+
 
     <style>
         .modal{
@@ -56,7 +58,7 @@
         <div id="mainCard" >
             <img src="Images/FiestaHomesLogo.png" style="width:50%; margin:0 auto; display:block"/>
             <h2>Fiesta Homes Management System</h2>
-            <h6><i>Resident App</i></h6>
+            <h6><i>Visitor App</i></h6>
             <hr>
             <form id="frmLogin" style="width:80%; margin:auto" >
                 <div class="mb-3">
@@ -158,6 +160,17 @@
         let currentNavItemID = "";
         let UserObj = {};
         /////////////////
+
+        $("#main").on('click', '#btnDownloadQR', function(){
+			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+		});
+
+        $("#main").on('click', "#btnLogout", function(){
+            let confirmres = confirm("Are you sure you want to logout account?");
+            if(confirmres){
+                $("#loginForm").slideDown();
+            }
+        });
 
         $("#frmChangeUserCredentials").submit( function(event){
             event.preventDefault();
@@ -279,7 +292,8 @@
 						width : $("#qrcode").width(),
 						height : $("#qrcode").width()
 					});
-                $("#qrcodeString").html(UserObj.QRCode)
+                $("#qrcodeString").html(UserObj.QRCode);
+                $("#qrcode").find("canvas").attr("id", "cvsQR");
             });
         }
 

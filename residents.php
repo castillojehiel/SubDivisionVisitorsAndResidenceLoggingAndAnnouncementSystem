@@ -105,7 +105,7 @@
 								<label>First Name:</label>
 							</div>
 							<div class="col-lg-10">
-								<input type="text" name="txtFirstName" class="form-control" />
+								<input type="text" name="txtFirstName" class="form-control" required />
 							</div>
 						</div>
 					</div>
@@ -125,7 +125,7 @@
 								<label>Last Name:</label>
 							</div>
 							<div class="col-lg-10">
-								<input type="text" name="txtLastName" class="form-control" />
+								<input type="text" name="txtLastName" class="form-control" required />
 							</div>
 						</div>
 					</div>
@@ -145,7 +145,7 @@
 								<label>Birthdate:</label>
 							</div>
 							<div class="col-lg-10">
-								<input type="date" name="txtBirthdate" class="form-control" />
+								<input type="date" name="txtBirthdate" class="form-control" required />
 							</div>
 						</div>
 					</div>
@@ -156,7 +156,7 @@
 							</div>
 							<div class="col-lg-10">
 								<div style ="display:inline-block">
-									<input type="radio" name="txtGender" value="Male" />
+									<input type="radio" name="txtGender" value="Male" checked />
 									<label>Male</label>
 									<input type="radio" name="txtGender" value="Female" />
 									<label>Female</label>
@@ -210,7 +210,7 @@
 								<label>First Name:</label>
 							</div>
 							<div class="col-lg-10">
-								<input type="text" name="txtFirstName" class="form-control" />
+								<input type="text" name="txtFirstName" class="form-control" required />
 								<input type="hidden" name="txtID" class="form-control" />
 							</div>
 						</div>
@@ -231,7 +231,7 @@
 								<label>Last Name:</label>
 							</div>
 							<div class="col-lg-10">
-								<input type="text" name="txtLastName" class="form-control" />
+								<input type="text" name="txtLastName" class="form-control" required />
 							</div>
 						</div>
 					</div>
@@ -251,7 +251,7 @@
 								<label>Birthdate:</label>
 							</div>
 							<div class="col-lg-10">
-								<input type="date" name="txtBirthdate" class="form-control" />
+								<input type="date" name="txtBirthdate" class="form-control" required />
 							</div>
 						</div>
 					</div>
@@ -262,7 +262,7 @@
 							</div>
 							<div class="col-lg-10">
 								<div style ="display:inline-block">
-									<input type="radio" name="txtGender" value="Male" />
+									<input type="radio" name="txtGender" value="Male" checked />
 									<label>Male</label>
 									<input type="radio" name="txtGender" value="Female" />
 									<label>Female</label>
@@ -328,11 +328,17 @@
 									<h6 id="lblQRCodeValue"></h6>
 								</div>
 							</div>
-							<div class="col-lg-9">
-								<button id="btnPrintQRCode" type="button" class="btn btn-primary">
-									<span class="fas fa-print"></span>
-									Print QR Code
-								</button>
+							<div class="col-lg-3">
+								<div class="row">
+									<button id="btnPrintQRCode" type="button" class="btn btn-primary">
+										<span class="fas fa-print"></span>
+										Print QR Code
+									</button>
+									<button id="btnDownloadQRCode" type="button" class="btn btn-warning">
+										<span class="fas fa-download"></span>
+										Download QR Code
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -447,6 +453,10 @@
 
 		//-----------------------------
 
+		$("#btnDownloadQRCode").click( function(){
+			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+		});
+
 		$("#btnPrintQRCode").click( function(){
 			$("#QRCodeParent").printThis({
 				importCSS : false,
@@ -461,7 +471,7 @@
 			$.get(url, function(res){
 				if(res != null || res != undefined){
 					let $frm = $("#frmViewResident");
-					$frm.find("input[name=chkIsActive]").prop('checked', res.isActive);
+					$frm.find("input[name=chkIsActive]").attr('checked', (res.isActive == 1? true : false));
 					$frm.find("input[name=txtFirstName]").val(res.FirstName);
 					$frm.find("input[name=txtMiddleName]").val(res.MiddleName);
 					$frm.find("input[name=txtLastName]").val(res.LastName);
@@ -478,6 +488,7 @@
 					});
 					$("#lblQRCodeValue").html(res.QRCode);
 					$("#mdlViewResident").modal('show');
+					$("#cvsQrCode").find("canvas").attr("id", "cvsQR");
 				}
 				else{
 					msgPopUp("Record not found", "Requested record could not be found in the database.", "warning");
@@ -497,6 +508,7 @@
 				if(res.result){
 					msgPopUp("Saved!",  "Resident record has been successfully saved.", "success");
 					$(".modal").modal('hide');
+					$("#frmSearch").trigger('submit');
 				}
 				else{
 					msgPopUp("Error!",  "Failed to save resident record.", "warning");
@@ -514,7 +526,7 @@
 				if(res != null || res != undefined){
 					let $frm = $("#frmEditResident");
 					$frm.find("input[name=txtID]").val(ID);
-					$frm.find("input[name=chkIsActive]").prop('checked', res.isActive);
+					$frm.find("input[name=chkIsActive]").attr('checked', (res.isActive == 1? true : false));
 					$frm.find("input[name=txtFirstName]").val(res.FirstName);
 					$frm.find("input[name=txtMiddleName]").val(res.MiddleName);
 					$frm.find("input[name=txtLastName]").val(res.LastName);
@@ -543,6 +555,7 @@
 				if(res.result){
 					msgPopUp("Saved!",  "New resident record has been successfully saved.", "success");
 					$(".modal").modal('hide');
+					$("#frmSearch").trigger('submit');
 				}
 				else{
 					msgPopUp("Error!",  "Failed to save new resident record.", "warning");

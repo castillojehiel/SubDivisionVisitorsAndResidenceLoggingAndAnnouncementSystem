@@ -7,6 +7,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.qrcode.min.js"></script>
     <script src="js/printThis.js"></script>
+    <script src="js/reImg.js"></script>
+
 
     <style>
         .modal{
@@ -203,7 +205,7 @@
         $("#main").on('click', "#btnLogout", function(){
             let confirmres = confirm("Are you sure you want to logout account?");
             if(confirmres){
-                location.reload();
+                $("#loginForm").slideDown();
             }
         });
 
@@ -247,11 +249,12 @@
             loadViewVisitorLogDetailsPage();
             let url = localStorage.getItem('APIURL_GateScan') + "/API/GetVisitorLogDetailsByID.php?VLID="+ID;
             $.get(url, function(res){
+                console.log(res);
                 let $frm = $("#frmVisitDetailsForm");
                 $frm.find("input[name=txtDateOfVisit]").val(res.RequestDateTime);
                 $frm.find("input[name=txtVisitorName]").val(res.VisitorName);
                 $frm.find("input[name=txtHouseHold]").val(res.HouseHoldName);
-                $frm.find("input[name=txtReasonForVisit]").val(res.ReasonForVisit);
+                $frm.find("textarea[name=txtReasonForVisit]").html(res.ReasonForVisit);
                 $frm.find("input[name=txtVisitStatus]").val(res.VisitStatus);
                 $frm.find("input[name=txtApprovedBy]").val(res.ApprovedByCompleteName);
                 $frm.find("input[name=txtApprovedDateTime]").val(res.ApprovedDateTime);

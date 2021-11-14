@@ -19,13 +19,14 @@
                     GetDataCenterCompleteName(dc.UpdatedBy) as UpdatedBy,
                     dc.UpdatedDateTime,
                     CONCAT(dc.FirstName, ' ', dc.MiddleName, ' ', dc.LastName, ' ', dc.Suffix) as ResidentName,
-                    (CASE WHEN hhcp.HCPID IS NULL THEN FALSE ELSE TRUE END) as isContactPerson
+                    (CASE WHEN hhcp.HCPID IS NULL THEN false ELSE true END) as isContactPerson
                 FROM DataCenter dc
                 LEFT JOIN HouseHolds h
                     ON dc.HouseHoldID = h.HouseHoldID
                 LEFT JOIN HouseHoldContactPersons hhcp
-                    ON h.HouseHoldID = hhcp.HouseHoldID
+                    ON dc.DataCenterID = hhcp.ResidentID AND h.HouseHoldID = hhcp.HouseHoldID
                 WHERE   dc.HouseHoldID = '$ID'
+
                 ";
     $sql = $conn -> query($query);
     $data = $sql -> fetch_all(MYSQLI_ASSOC);

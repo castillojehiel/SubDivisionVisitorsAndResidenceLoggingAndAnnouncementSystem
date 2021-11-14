@@ -19,7 +19,7 @@
                     dc.EmailAddress,
                     dc.HouseHoldID,
                     dc.QRCode,
-                    dc.isActive,
+                    CASE WHEN dc.isActive = 1 THEN true ELSE false END as isActive,
                     CASE 
                         WHEN dc.isActive = 1 THEN 'Active'
                         ELSE 'Inactive'
@@ -35,7 +35,6 @@
                 LEFT JOIN HouseHolds h
                     ON dc.HouseHoldID = h.HouseHoldID
                 WHERE   dc.isResident = 1 
-                        AND dc.isActive = 1
                         AND CONCAT(dc.FirstName, ' ', dc.LastName) LIKE '%$keyword%'
                         AND dc.isActive = (CASE WHEN '$isShowAll' = 1 THEN dc.isActive ELSE 1 END)
                 ";

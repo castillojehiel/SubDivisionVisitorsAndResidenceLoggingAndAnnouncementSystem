@@ -163,7 +163,7 @@
 			</div>
 			<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-warning" style="width:100px">
+			<button id="btnPrintReport" type="button" class="btn btn-warning" style="width:100px">
                 <span class="fas fa-print"></span>
                 Print
             </button>
@@ -256,8 +256,6 @@
   </div>
 </div>
 
-
-
 <!-- END of MODALS -->
 
 <script defer="true">
@@ -267,6 +265,15 @@
             $("#frmSearch").trigger('submit');
         }, 1000);
         /////////////////---------------
+
+		$("#btnPrintReport").click( function(){
+			$("#frmViewReport").printThis({
+				importCSS : true,
+				importStyle : true,
+				canvas : true,
+				loadCSS : document.URL.substr(0,document.URL.lastIndexOf('/')) + "/css/bootstrap.min.css"
+			});
+		});
 
 		$("#frmUpdateReportStatus").submit( function(event){
 			event.preventDefault();

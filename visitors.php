@@ -327,11 +327,17 @@
 									<h6 id="lblQRCodeValue"></h6>
 								</div>
 							</div>
-							<div class="col-lg-9">
-								<button id="btnPrintQRCode" type="button" class="btn btn-primary">
-									<span class="fas fa-print"></span>
-									Print QR Code
-								</button>
+							<div class="col-lg-3">
+								<div class="row">
+									<button id="btnPrintQRCode" type="button" class="btn btn-primary">
+										<span class="fas fa-print"></span>
+										Print QR Code
+									</button>
+									<button id="btnDownloadQRCode" type="button" class="btn btn-warning">
+										<span class="fas fa-download"></span>
+										Download QR Code
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -446,6 +452,10 @@
 
 		//-----------------------------
 
+		$("#btnDownloadQRCode").click( function(){
+			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+		});
+
 		$("#btnPrintQRCode").click( function(){
 			$("#QRCodeParent").printThis({
 				importCSS : false,
@@ -460,7 +470,7 @@
 			$.get(url, function(res){
 				if(res != null || res != undefined){
 					let $frm = $("#frmViewVisitor");
-					$frm.find("input[name=chkIsActive]").prop('checked', res.isActive);
+					$frm.find("input[name=chkIsActive]").attr('checked', (res.isActive == 1 ? true : false ));
 					$frm.find("input[name=txtFirstName]").val(res.FirstName);
 					$frm.find("input[name=txtMiddleName]").val(res.MiddleName);
 					$frm.find("input[name=txtLastName]").val(res.LastName);
@@ -476,6 +486,7 @@
 					});
 					$("#lblQRCodeValue").html(res.QRCode);
 					$("#mdlViewVisitor").modal('show');
+					$("#cvsQrCode").find("canvas").attr("id", "cvsQR");
 				}
 				else{
 					msgPopUp("Record not found", "Requested record could not be found in the database.", "warning");
@@ -499,6 +510,7 @@
 				if(res.result){
 					msgPopUp("Saved!",  "Visitor record has been successfully saved.", "success");
 					$(".modal").modal('hide');
+					$("#frmSearch").trigger('submit');
 				}
 				else{
 					msgPopUp("Error!",  "Failed to save Visitor record.", "warning");
@@ -516,7 +528,7 @@
 				if(res != null || res != undefined){
 					let $frm = $("#frmEditVisitor");
 					$frm.find("input[name=txtID]").val(ID);
-					$frm.find("input[name=chkIsActive]").prop('checked', res.isActive);
+					$frm.find("input[name=chkIsActive]").attr('checked', (res.isActive == 1 ? true : false ));
 					$frm.find("input[name=txtFirstName]").val(res.FirstName);
 					$frm.find("input[name=txtMiddleName]").val(res.MiddleName);
 					$frm.find("input[name=txtLastName]").val(res.LastName);
@@ -546,6 +558,7 @@
 				if(res.result){
 					msgPopUp("Saved!",  "New Visitor record has been successfully saved.", "success");
 					$(".modal").modal('hide');
+					$("#frmSearch").trigger('submit');
 				}
 				else{
 					msgPopUp("Error!",  "Failed to save new Visitor record.", "warning");

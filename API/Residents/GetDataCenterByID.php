@@ -14,7 +14,7 @@
                     dc.EmailAddress,
                     dc.HouseHoldID,
                     dc.QRCode,
-                    dc.isActive,
+                    CASE WHEN dc.isActive = 1 THEN true ELSE false END as isActive,
                     dc.isResident,
                     GetDataCenterCompleteName(dc.CreatedBy) as CreatedBy,
                     dc.CreatedDateTime,

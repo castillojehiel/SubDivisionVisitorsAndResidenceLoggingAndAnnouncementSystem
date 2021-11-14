@@ -44,6 +44,11 @@
 
 <script defer="true">
 	$(document).ready( function(){
+
+		$("#main").on('click', '#btnDownloadQR', function(){
+			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+		});
+
 		$("#frmLogin").submit( function(event){
 			event.preventDefault();
 			let url = "API/Users/UserLogin.php";

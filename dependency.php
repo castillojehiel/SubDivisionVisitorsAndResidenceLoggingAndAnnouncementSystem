@@ -6,6 +6,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.qrcode.min.js"></script>
 <script src="js/printThis.js"></script>
+<script src="js/reImg.js"></script>
 
 <?php
     include 'utils.php';

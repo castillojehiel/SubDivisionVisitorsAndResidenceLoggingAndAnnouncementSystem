@@ -7,6 +7,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.qrcode.min.js"></script>
     <script src="js/printThis.js"></script>
+    <script src="js/reImg.js"></script>
+
 
     <style>
         .modal{
@@ -364,6 +366,17 @@
         let currentNavItemID = "";
         let UserObj = {};
         /////////////////
+
+        $("#main").on('click', '#btnDownloadQR', function(){
+			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+		});
+
+        $("#main").on('click', "#btnLogout", function(){
+            let confirmres = confirm("Are you sure you want to logout account?");
+            if(confirmres){
+                $("#loginForm").slideDown();
+            }
+        });
 
         $("#main").on('submit', '#frmNewHouseHoldVehicle', function(event){
             event.preventDefault();
@@ -954,6 +967,7 @@
 						height : $("#qrcode").width()
 					});
                 $("#qrcodeString").html(UserObj.QRCode)
+                $("#qrcode").find("canvas").attr("id", "cvsQR");
             });
         }
 

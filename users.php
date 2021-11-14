@@ -552,17 +552,15 @@
 
         $("#tblResidentSearch").on('click', '.btnSelectResident', function(){
             let ID = $(this).parent().parent().prop("id");
-            DataCenterObj = ResidentList.map(x => {
-                var item = Object.assign({}, x);
-                if(item.DataCenterID == ID){
-                    return item;
-                }
-            })[0];
+			console.log(ID);
+			console.log(ResidentList);
+            DataCenterObj = ResidentList.filter(x => x.DataCenterID == ID)[0];
             console.log(DataCenterObj);
 
             $(".modal").modal('hide');
             let $frm = $("#frmNewUserAccount");
             $frm.trigger("reset");
+			console.log(DataCenterObj);
             $frm.find("input[name=txtDCID]").val(ID);
 			$frm.find("input[name=chkIsActive]").prop('checked', DataCenterObj.isActive);
 			$frm.find("input[name=txtFirstName]").val(DataCenterObj.FirstName);
@@ -636,7 +634,7 @@
 					$frm.find("input[name=txtBirthdate]").val(res.BirthDate);
 					$frm.find("input[name=txtContactNo]").val(res.ContactNo);
 					$frm.find("input[name=txtEmailAddress]").val(res.EmailAddress);
-					$frm.find("input[name=txtGender]").filter('[value='+res.Gender+']').prop('checked', true);
+					$frm.find("input[name=txtGender]input[value="+res.Gender+"]").prop('checked', true);
 					$("#cvsQrCode").qrcode({
 						text : res.QRCode,
 						width : 150,
@@ -658,7 +656,7 @@
 		$("#frmEditUserAccount").submit( function(event){
 			event.preventDefault();
 			let frmData = $(this).serialize();
-			let url = "API/Residents/UpdateResidentDetails.php";
+			let url = "API/Users/UpdateUserDetails.php";
 			$.post(url, frmData, function(res){
 				if(res.result){
 					msgPopUp("Saved!",  "Resident record has been successfully saved.", "success");
@@ -713,6 +711,7 @@
 				if(res.result){
 					msgPopUp("Saved!",  "New user account record has been successfully saved.", "success");
 					$(".modal").modal('hide');
+					$("#frmSearch").trigger('submit');
 				}
 				else{
 					msgPopUp("Error!",  "Failed to save new user account record.", "warning");

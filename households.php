@@ -143,7 +143,7 @@
 							<div class="row">
 								<table id="tblResidentSearch" class="table table-condensed table-striped table-bordered">
 									<thead class="thead-dark">
-										<th width="auto">Action</th>
+										<th width="90px">Action</th>
 										<th>Name</th>
 										<th>Birthdate</th>
 										<th>Gender</th>
@@ -266,7 +266,7 @@
 							<div class="row">
 								<table id="tblResidentSearch" class="table table-condensed table-striped table-bordered">
 									<thead class="thead-dark">
-										<th width="auto">Action</th>
+										<th width="90px">Action</th>
 										<th>Name</th>
 										<th>Birthdate</th>
 										<th>Gender</th>
@@ -474,6 +474,7 @@
 				HouseHoldResidents = res;
 				let $tbl = $("#"+modalid+" #tblHouseHoldResidents tbody");
 				$tbl.html('');
+				console.log(res);
 				$.each( res, function(indx, value){
 					$tbl.append(`
 							<tr id="`+ value.DataCenterID +`">
@@ -491,7 +492,7 @@
 									</td>` : ''
 								) + `
 								<td> `+ value.ResidentName +`</td>
-								<td>`+ (value.isContactPerson == true ? "Yes" : "No") +`</td>
+								<td>`+ (value.isContactPerson == 1 ? "Yes" : "No") +`</td>
 							</tr>
 						`);
 				});

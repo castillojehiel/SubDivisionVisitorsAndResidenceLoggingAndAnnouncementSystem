@@ -20,7 +20,8 @@
                         WHEN vl.isApproved = 1 THEN 'APPROVED'
                         WHEN vl.isActive = 0 THEN 'REJECTED'
                         ELSE 'PENDING'
-                    END as VisitStatus
+                    END as VisitStatus,
+                    vl.ReasonForVisit
                 FROM visitorlogs as vl
                 LEFT JOIN Useraccount as ua
                     ON vl.ScannedBy = ua.UserID

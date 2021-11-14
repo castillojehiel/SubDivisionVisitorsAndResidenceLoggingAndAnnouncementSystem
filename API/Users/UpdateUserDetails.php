@@ -36,8 +36,8 @@
                     UpdatedBy = '$UpdatedBy',  
                     UpdatedDateTime = CURRENT_TIMESTAMP,
                     Username = '$Username',
-                    Userpass = '$Userpass'
-                WHERE UserID = '$DCID'
+                    Userpass = '$Password'
+                WHERE UserID = '$ID'
             ";
     $sql = $conn -> query($query);
 

@@ -30,7 +30,6 @@
                 LEFT JOIN HouseHolds h
                     ON dc.HouseHoldID = h.HouseHoldID
                 WHERE   dc.isResident = 0
-                        AND dc.isActive = 1
                         AND CONCAT(dc.FirstName, ' ', dc.LastName) LIKE '%$keyword%'
                 ";
     $sql = $conn -> query($query);

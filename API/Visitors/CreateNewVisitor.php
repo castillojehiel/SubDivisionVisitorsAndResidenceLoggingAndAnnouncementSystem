@@ -12,6 +12,11 @@
 	if(isset($_SESSION["UserID"])){
 		$CreatedBy = $_SESSION["UserID"];
     }
+    $isActive = false;
+    if(isset($_POST["chkIsActive"])){
+		$isActive = $_POST["chkIsActive"];
+	}
+
 
     $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime, Userpass)
         VALUES(
@@ -23,7 +28,7 @@
                 '$Birthdate',
                 '$ContactNo',
                 '$EmailAddress',
-                1,
+                '$isActive',
                 0,
                 '$CreatedBy',
                 CURRENT_TIMESTAMP(),
