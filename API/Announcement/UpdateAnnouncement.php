@@ -5,7 +5,7 @@
     $AnnouncementType = $_POST["cboAnnouncementType"];
     $Title = $_POST["txtTitle"];
     $ExpiryDate = $_POST["txtExpiryDate"];
-    $Details = $_POST["txtDetails"];
+    $Details = $conn -> real_escape_string($_POST["txtDetails"]);
     $UpdatedBy = 1;
 	if(isset($_SESSION["UserID"])){
 		$UpdatedBy = $_SESSION["UserID"];

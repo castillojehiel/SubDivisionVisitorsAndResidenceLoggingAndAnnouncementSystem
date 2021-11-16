@@ -17,9 +17,9 @@
 
 	<div style="min-height:300; overflow: auto">
 		<ul class="navigationV" style="background:transparent; ">
-			<!-- <li>
+			<li>
 				<a href="dashboard.php"> <i class="fas fa-home"></i> Dashboard</a>
-			</li> -->
+			</li>
 			
 			<li>
 				<a href="residents.php"> <i class="fas fa-users"></i> Residents</a>

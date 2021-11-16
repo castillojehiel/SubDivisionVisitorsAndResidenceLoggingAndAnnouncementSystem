@@ -44,11 +44,6 @@
 
 <script defer="true">
 	$(document).ready( function(){
-
-		$("#main").on('click', '#btnDownloadQR', function(){
-			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
-		});
-
 		$("#frmLogin").submit( function(event){
 			event.preventDefault();
 			let url = "API/Users/UserLogin.php";
@@ -56,7 +51,7 @@
 			$.post(url, data, function(res){
 				if(res != undefined){
 					if(res.UserID > 0){
-						window.location.href = "residents.php";
+						window.location.href = "dashboard.php";
 					}
 					else 
 						msgPopUp("Login Failed.", "Failed to login account. Please recheck credentials and try again", "warning");

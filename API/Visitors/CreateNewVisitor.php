@@ -32,7 +32,7 @@
                 0,
                 '$CreatedBy',
                 CURRENT_TIMESTAMP(),
-                '0'
+                '$FirstName'
         )";
 
     $sql = $conn -> query($query);

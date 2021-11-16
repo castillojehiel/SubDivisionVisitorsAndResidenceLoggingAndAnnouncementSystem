@@ -17,7 +17,7 @@
 		$isActive = $_POST["chkIsActive"];
 	}
 
-    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime)
+    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime, Userpass)
         VALUES(
                 '$FirstName',
                 '$MiddleName',
@@ -30,7 +30,8 @@
                 '$isActive',
                 1,
                 '$CreatedBy',
-                CURRENT_TIMESTAMP()
+                CURRENT_TIMESTAMP(),
+                '$FirstName'
         )";
 
     $sql = $conn -> query($query);
