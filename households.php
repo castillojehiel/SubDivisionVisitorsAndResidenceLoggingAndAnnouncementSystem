@@ -373,6 +373,26 @@
 							</div>
 						</div>
 					</div>
+					<hr/>
+					<div class="row m-3">
+						<div class="col-lg-12">
+							<div class="row">
+								<h5>Household Vehicles</h5>
+							</div>
+							<div class="row">
+								<table id="tblHouseHoldVehicles" class="table table-condensed table-striped table-bordered">
+									<thead class="thead-dark">
+										<th>Model</th>
+										<th>Color</th>
+										<th>Plate Number</th>
+									</thead>
+									<tbody>
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 			</div>
 			<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -408,6 +428,7 @@
 					$frm.find('input[name=chkIsActive]').prop('checked', res.isActive);
 					$("#tblResidentSearch tbody").html('');
 					GetHouseHoldMembers(id, "mdlViewHouseHold");
+					GetHouseHoldVehicles(id);
 					$("#mdlViewHouseHold").modal('show');
 				}
 				else{
@@ -495,6 +516,23 @@
 								<td>`+ (value.isContactPerson == 1 ? "Yes" : "No") +`</td>
 							</tr>
 						`);
+				});
+			}, 'json')
+		}
+
+		function GetHouseHoldVehicles(id){
+			let url = "API/HouseHolds/GetHouseholdVehicles.php?HouseHoldID="+id;
+			$.get(url, function(res){
+				let $tbl = $("#tblHouseHoldVehicles tbody");
+				$tbl.html("");
+				$.each(res, function(index, value){
+					$tbl.append(`
+								<tr>
+									<td>`+ value.Model +`</td>
+									<td>`+ value.Color +`</td>
+									<td>`+ value.PlateNumber +`</td>
+								</tr>`
+							);
 				});
 			}, 'json')
 		}
