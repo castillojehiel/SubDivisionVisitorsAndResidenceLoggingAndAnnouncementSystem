@@ -63,7 +63,42 @@
                             </form>
                         </div>
                         <div class="card-body">
-                            <canvas id="cvsReportsGraph">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-body" id="ReportsPendingCount">
+                                            <h6 class="card-title">Pending Reports:</h6>
+                                            <h2>100</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-body" id="ReportsAcknowledgedCount">
+                                            <h6 class="card-title">Acknowledged Reports:</h6>
+                                            <h2>100</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-body" id="ReportsResolvedCount">
+                                            <h6 class="card-title">Resolved Reports:</h6>
+                                            <h2>100</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="card-body" id="ReportsRejectedCount">
+                                            <h6 class="card-title">Rejected Reports:</h6>
+                                            <h2>100</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <canvas id="cvsReportsGraph" style="max-height:500px">
 
                             </canvas>
                         </div>
@@ -123,7 +158,9 @@
 <script defer="true">
     $(document).ready( function(){
 
-        
+        setTimeout(() => {
+            $("#frmGenerateReportStatistics").trigger('submit');
+        }, 500);
 
         $("#frmGenerateReportStatistics").submit( function(event){
             event.preventDefault();
@@ -146,39 +183,23 @@
                     rejectedReportsValues.push(value.RejectedReports);
                 });
 
+                console.log(pendingReportsValues);
+
+                //set summaries
+                $("#ReportsPendingCount h2").html(pendingReportsValues.filter(x => x > 0).length);
+                $("#ReportsAcknowledgedCount h2").html(acknowledgedReportsValues.filter(x => x > 0).length);
+                $("#ReportsResolvedCount h2").html(resolvedReportsValues.filter(x => x > 0).length);
+                $("#ReportsRejectedCount h2").html(rejectedReportsValues.filter(x => x > 0).length);
+
                 var myChart = new Chart("cvsReportsGraph", {
                     type: "line",
                     data: {
-                        labels: xValues,
+                         labels: xValues,
                         datasets: [
                             {
                                 label : "All Reports",
                                 borderColor: "rgba(0,0,0,0.1)",
                                 data: allReportsValues,
-                                fill:false
-                            },
-                            {
-                                label : "Pending Reports",
-                                borderColor: "gray",
-                                data: pendingReportsValues,
-                                fill:false
-                            },
-                            {
-                                label : "Acknowledged Reports",
-                                borderColor: "blue",
-                                data: acknowledgedReportsValues,
-                                fill:false
-                            },
-                            {
-                                label : "Resolved Reports",
-                                borderColor: "green",
-                                data: resolvedReportsValues,
-                                fill:false
-                            },
-                            {
-                                label : "Rejected Reports",
-                                borderColor: "red",
-                                data: rejectedReportsValues,
                                 fill:false
                             }
                         ]
