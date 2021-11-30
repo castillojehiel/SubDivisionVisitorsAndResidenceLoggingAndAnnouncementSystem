@@ -21,7 +21,9 @@
                     GetDataCenterCompleteName(dc.UpdatedBy) as UpdatedBy,
                     dc.UpdatedDateTime,
                     h.HouseHoldName as HouseHold,
-                    CONCAT(dc.FirstName, ' ', dc.MiddleName, ' ', dc.LastName, ' ', dc.Suffix) as ResidentName
+                    CONCAT(dc.FirstName, ' ', dc.MiddleName, ' ', dc.LastName, ' ', dc.Suffix) as ResidentName,
+                    dc.DataCenterPhoto,
+                    dc.PhotoExt
                 FROM DataCenter dc
                 LEFT JOIN HouseHolds h
                     ON dc.HouseHoldID = h.HouseHoldID

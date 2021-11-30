@@ -8,6 +8,8 @@
     $ContactNo = $_POST["txtContactNo"];
     $EmailAddress = $_POST["txtEmailAddress"];
     $Gender = $_POST["txtGender"];
+    $Photo = $_POST["txtPhoto"];
+    $PhotoExt = $_POST["txtPhotoExt"];
     $CreatedBy = 1;
 	if(isset($_SESSION["UserID"])){
 		$CreatedBy = $_SESSION["UserID"];
@@ -17,7 +19,7 @@
 		$isActive = $_POST["chkIsActive"];
 	}
 
-    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime, Userpass)
+    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime, Userpass, DataCenterPhoto, PhotoExt)
         VALUES(
                 '$FirstName',
                 '$MiddleName',
@@ -27,11 +29,13 @@
                 '$Birthdate',
                 '$ContactNo',
                 '$EmailAddress',
-                '$isActive',
+                1,
                 1,
                 '$CreatedBy',
                 CURRENT_TIMESTAMP(),
-                '$FirstName'
+                '$FirstName',
+                '$Photo',
+                '$PhotoExt'
         )";
 
     $sql = $conn -> query($query);

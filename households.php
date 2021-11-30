@@ -444,15 +444,15 @@
 					</form>
 				</div>
 				<div class="row">
-				<table id="tblHouseHoldLogs" class="table table-condensed table-striped table-bordered">
-					<thead class="thead-dark">
-						<th>Member</th>
-						<th>Date</th>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
+					<table id="tblHouseHoldLogs" class="table table-condensed table-striped table-bordered">
+						<thead class="thead-dark">
+							<th>Member</th>
+							<th>Date</th>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="modal-footer">

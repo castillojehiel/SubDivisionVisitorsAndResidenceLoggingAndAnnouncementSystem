@@ -9,6 +9,8 @@
     $ContactNo = $_POST["txtContactNo"];
     $EmailAddress = $_POST["txtEmailAddress"];
     $Gender = $_POST["txtGender"];
+    $Photo = $_POST["txtPhoto"];
+    $PhotoExt = $_POST["txtPhotoExt"];
     $UpdatedBy = 1;
 	if(isset($_SESSION["UserID"])){
 		$UpdatedBy = $_SESSION["UserID"];
@@ -30,7 +32,9 @@
                     EmailAddress = '$EmailAddress', 
                     isActive = '$isActive',  
                     UpdatedBy = '$UpdatedBy',  
-                    UpdatedDateTime = CURRENT_TIMESTAMP
+                    UpdatedDateTime = CURRENT_TIMESTAMP,
+                    DataCenterPhoto = '$Photo',
+                    PhotoExt = '$PhotoExt'
                 WHERE DataCenterID = '$ID'
             ";
     $sql = $conn -> query($query);

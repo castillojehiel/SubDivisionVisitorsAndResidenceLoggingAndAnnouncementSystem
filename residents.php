@@ -102,6 +102,24 @@
 					<div class="form-group m-3">
 						<div class="row">
 							<div class="col-lg-2">
+								<label>Photo:</label>
+							</div>
+							<div class="col-lg-10">
+								<div class="row">
+									<div class="col-lg-6">
+										<input id="newResidentPhoto" type="file" name="txtResidentPhoto" class="form-control"  />
+									</div>
+									<div class="col-lg-6">
+									<img id="newResidentImg" class="img-thumbnail" style="width:150px; height:150xpx"/>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
 								<label>First Name:</label>
 							</div>
 							<div class="col-lg-10">
@@ -184,6 +202,8 @@
 							</div>
 						</div>
 					</div>
+					<input type="hidden" name="txtPhoto" />
+					<input type="hidden" name="txtPhotoExt" />
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -204,6 +224,23 @@
 			</div>
 			<div class="modal-body">
 				<form id="frmEditResident">
+					<div class="form-group m-3">
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Photo:</label>
+							</div>
+							<div class="col-lg-10">
+								<div class="row">
+									<div class="col-lg-6">
+										<input id="editResidentPhoto" type="file" name="txtResidentPhoto" class="form-control"  />
+									</div>
+									<div class="col-lg-6">
+									<img id="editResidentImg" class="img-thumbnail" style="width:150px; height:150xpx"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="form-group m-3">
 						<div class="row">
 							<div class="col-lg-2">
@@ -298,6 +335,8 @@
 							</div>
 						</div>
 					</div>
+					<input type="hidden" name="txtPhoto" />
+					<input type="hidden" name="txtPhotoExt" />
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -320,6 +359,9 @@
 				<form id="frmViewResident">
 					<div class="form-group m-3">
 						<div class="row">
+							<div class="col-lg-3">
+								<img id="viewResidentImg" class="img-thumbnail" style="width:150px; height:150xpx"/>
+							</div>
 							<div class="col-lg-3">
 								<div id="QRCodeParent">
 									<div id="cvsQrCode">
@@ -448,16 +490,60 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">View Gatelogs</h5>
+			<h5 class="modal-title" id="exampleModalLabel">View Resident Gatelogs</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="frmResidentGateLogsSearch ">
-
-				</form>
+				<div class="row">
+					<h5 id="lblResidentName">Resident : <strong><u><span></span></u></strong></h5>
+				</div>
+				<div class="row">
+					<form id="frmSearchResidentGateLogs">
+						<input type="hidden" name="ID"/>
+						<div class="row">
+							<div class="col-lg-2">
+								<div class="form-group">
+									<label>Date Range:</label>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="date" name="txtDateFrom" class="form-control" value="<?php echo date('Y-m-d',strtotime(date("Y/m/d", strtotime('-7 days')))) ?>" />
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="date" name="txtDateTo" class="form-control" value="<?php echo date('Y-m-d',strtotime(date("Y/m/d"))) ?>" />
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">
+										<span class="fas fa-search"></span>
+										Search
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<table id="tblResidentGateLogs" class="table table-condensed table-striped table-bordered">
+						<thead class="thead-dark">
+							<th>Date</th>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-light" id="btnPrintVisitorLogs">
+					<span class="fas fa-print"></span>
+					Print 
+				</button>
 			</div>
 		</div>
 	</div>
@@ -471,6 +557,79 @@
 		}, 500);
 
 		//-----------------------------
+
+		$("#frmEditResident input[name=txtResidentPhoto]").change(function(event){
+			var files = document.getElementById('editResidentPhoto').files;
+			if (files.length > 0) {
+				console.log(files[0]);
+				var reader = new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload = function () {
+					let base64 = reader.result;
+					document.getElementById("editResidentImg").setAttribute("src", base64);
+					$("#frmEditResident input[name=txtPhoto]").val(base64);
+					$("#frmEditResident input[name=txtPhotoExt]").val(files[0].type.replace("image/","."));
+					
+				};
+				reader.onerror = function (error) {
+					console.log('Error: ', error);
+				};
+			}
+		});
+
+		$("#frmNewResident input[name=txtResidentPhoto]").change(function(event){
+			var files = document.getElementById('newResidentPhoto').files;
+			if (files.length > 0) {
+				console.log(files[0]);
+				var reader = new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload = function () {
+					let base64 = reader.result;
+					document.getElementById("newResidentImg").setAttribute("src", base64);
+					$("#frmNewResident input[name=txtPhoto]").val(base64);
+					$("#frmNewResident input[name=txtPhotoExt]").val(files[0].type.replace("image/","."));
+					
+				};
+				reader.onerror = function (error) {
+					console.log('Error: ', error);
+				};
+			}
+		});
+
+		$("#btnPrintVisitorLogs").click( function(){
+			$("#mdlViewResidentGateLogs .modal-body").printThis({
+				importCSS : false,
+				importStyle : true,
+				canvas : true
+			});
+		});
+
+		$("#frmSearchResidentGateLogs").submit(function(event){
+			event.preventDefault();
+			let url = "API/Residents/GetDataCenterGateLogs.php";
+			let data = $(this).serialize();
+			$.post(url, data, function(res){
+				let $tbl = $("#mdlViewResidentGateLogs #tblResidentGateLogs tbody");
+				$.each(res, function(indx, value){
+					$tbl.append(`
+									<tr>
+										<td>`+ value.CreatedDateTime +`</td>
+									</tr>
+								`);
+				})
+			}, 'json')
+			.fail( function(xhr, status, message){
+				msgPopUp("Error has occured", message, "danger");
+			});
+		});
+
+		$("#tblList").on('click', '.btnViewGateLogs', function(){
+			let ID = $(this).parent().parent().prop("id");
+			let $tbl = $("#mdlViewResidentGateLogs #tblResidentGateLogs tbody");
+			$tbl.html("");
+			$("#mdlViewResidentGateLogs input[name=ID]").val(ID);
+			$("#mdlViewResidentGateLogs").modal("show");
+		});
 
 		$("#btnDownloadQRCode").click( function(){
 			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
@@ -499,6 +658,9 @@
 					$frm.find("input[name=txtContactNo]").val(res.ContactNo);
 					$frm.find("input[name=txtEmailAddress]").val(res.EmailAddress);
 					$frm.find("input[name=txtGender]").filter('[value='+res.Gender+']').prop('checked', true);
+
+					document.getElementById("viewResidentImg").setAttribute("src", res.DataCenterPhoto);
+
 					$("#cvsQrCode").html("");
 					$("#cvsQrCode").qrcode({
 						text : res.QRCode,
@@ -553,7 +715,11 @@
 					$frm.find("input[name=txtBirthdate]").val(res.BirthDate);
 					$frm.find("input[name=txtContactNo]").val(res.ContactNo);
 					$frm.find("input[name=txtEmailAddress]").val(res.EmailAddress);
+					$frm.find("input[name=txtPhoto]").val(res.DataCenterPhoto);
+					$frm.find("input[name=txtPhotoExt]").val(res.PhotoExt);
 					$frm.find("input[name=txtGender]").filter('[value='+res.Gender+']').prop('checked', true);
+
+					document.getElementById("editResidentImg").setAttribute("src", res.DataCenterPhoto);
 
 					$("#mdlEditResident").modal('show');
 				}
@@ -612,6 +778,10 @@
 									<span class="fas fa-edit" ></span>
 									Edit
 								</button>
+								<button class="btn btn-secondary btnViewGateLogs">
+									<span class="fas fa-list" ></span>
+									View Gate Logs
+								</button>
 							</td>
 							<td>`+ (value.HouseHold == undefined ? '' : value.HouseHold) +`</td>
 							<td>`+ value.ResidentName +`</td>
@@ -632,6 +802,19 @@
 				msgPopUp("Error has occured", message, "danger");
 			});
 		});
+
+
+		function getBase64(file) {
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function () {
+				console.log(reader.result);
+				return reader.result;
+			};
+			reader.onerror = function (error) {
+				console.log('Error: ', error);
+			};
+		}
 
 	});
 </script>
