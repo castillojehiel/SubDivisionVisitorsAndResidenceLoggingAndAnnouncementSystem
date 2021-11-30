@@ -401,6 +401,139 @@
 	</div>
   </div>
 
+  <div class="modal fade" id="mdlViewHouseHoldLogs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">View HouseHold Logs</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<h5 id="lblHouseHoldName">HouseHold : <strong><u><span></span></u></strong></h5>
+				</div>
+				<hr>
+				<div class="row">
+					<form id="frmSearchHouseHoldLogs">
+						<input type="hidden" name="ID"/>
+						<div class="row">
+							<div class="col-lg-2">
+								<div class="form-group">
+									<label>Date Range:</label>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="date" name="txtDateFrom" class="form-control" value="<?php echo date('Y-m-d',strtotime(date("Y/m/d", strtotime('-7 days')))) ?>" />
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="date" name="txtDateTo" class="form-control" value="<?php echo date('Y-m-d',strtotime(date("Y/m/d"))) ?>" />
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">
+										<span class="fas fa-search"></span>
+										Search
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+				<table id="tblHouseHoldLogs" class="table table-condensed table-striped table-bordered">
+					<thead class="thead-dark">
+						<th>Member</th>
+						<th>Date</th>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-light" id="btnPrintMemberLogs">
+					<span class="fas fa-print"></span>
+					Print 
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="mdlViewHouseHoldVisitorLogs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">View HouseHold Visitor Logs</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<h5 id="lblHouseHoldName">HouseHold : <strong><u><span></span></u></strong></h5>
+				</div>
+				<hr>
+				<div class="row">
+					<form id="frmSearchHouseHoldVisitorLogs">
+						<input type="hidden" name="ID"/>
+						<div class="row">
+							<div class="col-lg-2">
+								<div class="form-group">
+									<label>Date Range:</label>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="date" name="txtDateFrom" class="form-control" value="<?php echo date('Y-m-d',strtotime(date("Y/m/d", strtotime('-7 days')))) ?>" />
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="date" name="txtDateTo" class="form-control" value="<?php echo date('Y-m-d',strtotime(date("Y/m/d"))) ?>" />
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">
+										<span class="fas fa-search"></span>
+										Search
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+				<table id="tblHouseHoldVisitorLogs" class="table table-condensed table-striped table-bordered">
+					<thead class="thead-dark">
+						<th>Visitor</th>
+						<th>Date</th>
+						<th>Purpose of Visit</th>
+						<th>Approved By</th>
+						<th>Approved DateTime</th>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-light" id="btnPrintVisitorLogs">
+					<span class="fas fa-print"></span>
+					Print 
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
   <!-- END of MODALS -->
 
 <script defer="true">
@@ -414,6 +547,90 @@
 			$("#frmSearch").trigger('submit');
 		}, 500);
 		//----------------------------------------
+
+		$("#btnPrintVisitorLogs").click( function(){
+			$("#mdlViewHouseHoldVisitorLogs .modal-body").printThis({
+				importCSS : false,
+				importStyle : true,
+				canvas : true
+			});
+		});
+
+		$("#frmSearchHouseHoldVisitorLogs").submit( function(event){
+			event.preventDefault();
+			let data = $(this).serialize();
+			let url = "API/HouseHolds/GetHouseHoldVisitorLogs.php"; 
+			$.post(url, data, function(res){
+				let $tbl = $("#mdlViewHouseHoldVisitorLogs #tblHouseHoldVisitorLogs tbody");
+				$tbl.html("");
+				$.each(res, function(indx, value){
+					$tbl.append(`
+							<tr>
+								<td>`+ value.VisitorName +`</td>
+								<td>`+ value.RequestDateTime +`</td>
+								<td>`+ value.ReasonForVisit +`</td>
+								<td>`+ value.ApprovedBy +`</td>
+								<td>`+ value.ApprovedDateTime +`</td>
+							</tr>
+						`);
+				});
+			}, 'json')
+			.fail( function(xhr, status, message){
+				msgPopUp("Error has occured", message, "danger");
+			});
+		})
+
+		$("#tblHouseHold").on('click', '.btnViewVisitorLogs', function(){
+			let id = $(this).parent().parent().prop('id');
+			let HouseHoldName = $(this).parent().next().html();
+			
+			$("#mdlViewHouseHoldVisitorLogs input[name=ID]").val(id);
+			$("#mdlViewHouseHoldVisitorLogs #lblHouseHoldName span").html(HouseHoldName);
+			$("#mdlViewHouseHoldVisitorLogs #tblHouseHoldVisitorLogs tbody").html("");
+
+			$("#mdlViewHouseHoldVisitorLogs").modal("show");
+		});
+
+
+		$("#btnPrintMemberLogs").click( function(){
+			$("#mdlViewHouseHoldLogs .modal-body").printThis({
+				importCSS : false,
+				importStyle : true,
+				canvas : true
+			});
+		});
+
+		$("#frmSearchHouseHoldLogs").submit( function(event){
+			event.preventDefault();
+			let data = $(this).serialize();
+			let url = "API/HouseHolds/GetHouseHoldLogs.php"; 
+			$.post(url, data, function(res){
+				let $tbl = $("#mdlViewHouseHoldLogs #tblHouseHoldLogs tbody");
+				$tbl.html("");
+				$.each(res, function(indx, value){
+					$tbl.append(`
+							<tr>
+								<td>`+ value.MemberName +`</td>
+								<td>`+ value.DateOfLogs +`</td>
+							</tr>
+						`);
+				});
+			}, 'json')
+			.fail( function(xhr, status, message){
+				msgPopUp("Error has occured", message, "danger");
+			});
+		})
+
+		$("#tblHouseHold").on('click', '.btnViewMemberLogs', function(){
+			let id = $(this).parent().parent().prop('id');
+			let HouseHoldName = $(this).parent().next().html();
+			
+			$("#mdlViewHouseHoldLogs input[name=ID]").val(id);
+			$("#mdlViewHouseHoldLogs #lblHouseHoldName span").html(HouseHoldName);
+			$("#mdlViewHouseHoldLogs #tblHouseHoldLogs tbody").html("");
+
+			$("#mdlViewHouseHoldLogs").modal("show");
+		});
 
 		$("#tblHouseHold").on('click', '.btnView', function(){
 			let id = $(this).parent().parent().prop('id');
@@ -770,6 +987,14 @@
 								<button class="btn btn-warning btnEdit">
 									<span class="fas fa-edit" ></span>
 									Edit
+								</button>
+								<button class="btn btn-secondary btnViewMemberLogs">
+									<span class="fas fa-list" ></span>
+									Member Logs
+								</button>
+								<button class="btn btn-secondary btnViewVisitorLogs">
+									<span class="fas fa-list" ></span>
+									Visitor Logs
 								</button>
 							</td>
 							<td>`+ value.HouseHoldName +`</td>
