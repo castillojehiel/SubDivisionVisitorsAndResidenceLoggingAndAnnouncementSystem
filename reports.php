@@ -33,7 +33,7 @@
 				</div>
 				
 				<div class="col-lg-2 offset-lg-1">
-					<button id="btnNew" type="button" class="btn btn-success" style="float:right">
+					<button id="btnNew" sty type="button" class="btn btn-success" style="display:none; float:right">
 						<span class="fas fa-plus" ></span>
 						New
 					</button>

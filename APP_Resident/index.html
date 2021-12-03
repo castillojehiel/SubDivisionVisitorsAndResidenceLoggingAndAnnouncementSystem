@@ -367,6 +367,199 @@
         let UserObj = {};
         /////////////////
 
+        $("#main").on("submit", "#frmSearchPersonalLogs", function(event){
+            event.preventDefault();
+            let data = $(this).serializeArray();
+            let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+            data.push({name : "DataCenterID", value : obj.DataCenterID});
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetDataCenterGateLogs.php";
+            $.post(url, data, function(res){
+                let $list = $("#listPersonalLogs");
+                $list.html("");
+                if(res.length > 0){
+                    $.each(res, function(indx, value){
+                        $list.append(`
+                                    <li class="list-group-item card mb-1">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    Date of Log : <strong>`+ value.CreatedDateTime +`</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>`);
+                    });
+                }
+                else{
+                    $list.append(`<p>No results found...</p>`)
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        });
+
+
+        $("#main").on("click","#btnViewPersonalLogs", function(){
+            $.get("viewpersonallogs.html", function(data){
+                $("#main").html(data);
+                var date = new Date();
+                var currentDate = date.toISOString().substring(0,10);
+                $("#frmSearchPersonalLogs input[name=txtDateFrom]").val(currentDate);
+                $("#frmSearchPersonalLogs input[name=txtDateTo]").val(currentDate);
+            })
+        });
+
+        $("#main").on("submit", "#frmSearchMembersLogs", function(event){
+            event.preventDefault();
+            let data = $(this).serializeArray();
+            let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+            data.push({name : "HouseHoldID", value : obj.HouseHoldID});
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetHouseHoldLogs.php";
+            $.post(url, data, function(res){
+                let $list = $("#listMembersLogs");
+                $list.html("");
+                if(res.length > 0){
+                    $.each(res, function(indx, value){
+                        $list.append(`
+                        <li class="list-group-item card mb-1">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <strong>`+ value.MemberName +`</strong>
+                                    </div>
+                                    <div class="text-muted">
+                                        <div class="row">
+                                            <small><span> Log Date/Time : `+ value.DateOfLogs +`</span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`);
+                    });
+                }
+                else{
+                    $list.append(`<p>No results found...</p>`)
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        });
+
+
+        $("#main").on("click","#btnViewMembersLogs", function(){
+            $.get("viewmemberslogs.html", function(data){
+                $("#main").html(data);
+                var date = new Date();
+                var currentDate = date.toISOString().substring(0,10);
+                $("#frmSearchMembersLogs input[name=txtDateFrom]").val(currentDate);
+                $("#frmSearchMembersLogs input[name=txtDateTo]").val(currentDate);
+            })
+        });
+
+        $("#main").on("submit", "#frmSearchVisitorLogs", function(event){
+            event.preventDefault();
+            let data = $(this).serializeArray();
+            let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+            data.push({name : "HouseHoldID", value : obj.HouseHoldID});
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetHouseHoldVisitorLogs.php";
+            $.post(url, data, function(res){
+                let $list = $("#listVisitorLogs");
+                $list.html("");
+                if(res.length > 0){
+                    $.each(res, function(indx, value){
+                        $list.append(`
+                                <li class="list-group-item card mb-1">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <strong>`+ value.VisitorName +`</strong>
+                                            </div>
+                                            <div class="text-muted">
+                                                <div class="row">
+                                                    <small><span> Visit Date/Time : `+ value.RequestDateTime +` | Status : `+ value.VisitStatus +`</span></small>
+                                                </div>
+                                                <div class="row visitOtherDetails">
+                                                    <small>
+                                                        <span> Approved By : `+ value.ApprovedBy +` 
+                                                            <br> 
+                                                            Approved Date/Time  : `+ value.ApprovedDateTime +`
+                                                            <br>
+                                                            Purpose of Visit : `+ value.ReasonForVisit +`
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>`);
+                    });
+                }
+                else{
+                    $list.append(`<p>No results found...</p>`)
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        });
+
+        $("#main").on("click","#btnViewVisitorsLogs", function(){
+            $.get("viewvisitorlogs.html", function(data){
+                $("#main").html(data);
+                var date = new Date();
+                var currentDate = date.toISOString().substring(0,10);
+                $("#frmSearchVisitorLogs input[name=txtDateFrom]").val(currentDate);
+                $("#frmSearchVisitorLogs input[name=txtDateTo]").val(currentDate);
+            })
+        });
+
+        $("#main").on("click","#btnUpdatePhoto", function(){
+            let cnf = confirm("Are you sure you want to update photo?");
+            if(cnf){
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let data  = {
+                    Base64 : $("#frmUserDetailsPage input[name=txtPhoto]").val(),
+                    ExtName : $("#frmUserDetailsPage input[name=txtPhotoExt]").val(),
+                    DataCenterID : obj.DataCenterID
+                };
+                let url = localStorage.getItem('APIURL_Resident') + "/API/UpdateResidentPhoto.php";
+                $.post(url, data, function(res){
+                    if(res.result){
+                        alert("New photo has been updated successfully");  
+                        loadUserPage();
+                    }
+                    else{
+                        alert("Failed save new record.");
+                    }
+                }, 'json')
+                .fail( function(xhr, status, message){
+                    alert("Error has occured. " + message);
+                });
+            }
+        });
+
+        $("#main").on("change","#frmUserDetailsPage input[name=txtFile]", function(){
+            var files = document.getElementById('changePhoto').files;
+            console.log(files);
+			if (files.length > 0) {
+				console.log(files[0]);
+				var reader = new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload = function () {
+					let base64 = reader.result;
+					document.getElementById("residentPhoto").setAttribute("src", base64);
+					$("#frmUserDetailsPage input[name=txtPhoto]").val(base64);
+					$("#frmUserDetailsPage input[name=txtPhotoExt]").val(files[0].type.replace("image/","."));
+					
+				};
+				reader.onerror = function (error) {
+					console.log('Error: ', error);
+				};
+			}
+        });
+
         $("#main").on('click', '#btnDownloadQR', function(){
 			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
 		});
@@ -381,7 +574,7 @@
         $("#main").on('submit', '#frmNewHouseHoldVehicle', function(event){
             event.preventDefault();
             let data = $(this).serialize();
-            let url = localStorage.getItem('APIURL_Resident') + "/API/AddHouseholdVehicle.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetHouseHoldVisitorLogs.php";
             $.post(url, data, function(res){
                 if(res.result){
                         alert("New household vehicle was successfully saved.");  
@@ -996,10 +1189,12 @@
                 $frm.find("input[name=txtEmailAddress]").val(obj.EmailAddress);
                 $frm.find("input[name=txtUsername]").val(obj.Username);
                 $frm.find("input[name=txtPassword]").val(obj.Userpass);
-
+                document.getElementById("residentPhoto").setAttribute("src", obj.DataCenterPhoto);
                 if(!obj.isHouseHoldContactPerson){
                     $("#btnAddHouseHoldMember").hide();
                     $("#btnAddHouseHoldVehicle").hide();
+                    $("#btnViewVisitorsLogs").hide();
+                    $("#btnViewMembersLogs").hide();
                 }
 
                 //load householdmembers
@@ -1009,7 +1204,9 @@
                     $list.html("");
                     console.log(res);
                     $.each(res, function(index, value){
-                        $list.append(`<li class="list-group-item">`+ value.HouseHoldMemberName +`</li>`)
+                        $list.append(`<li class="list-group-item" id="`+ value.DataCenterID +`">
+                                        <span>`+ value.HouseHoldMemberName +`</span>
+                                    </li>`)
                     })
                 }, 'json')
 
