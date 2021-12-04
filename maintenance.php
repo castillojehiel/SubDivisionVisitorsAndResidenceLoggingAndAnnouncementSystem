@@ -4,7 +4,7 @@
 ?>
 
 <div class="mainContent">
-	<h2 class="page-title"><i class="fas fa-users-cog"></i> Maintenance</h2>
+	<h2 class="page-title"><i class="fas  fa-tools"></i> Maintenance</h2>
 	<hr/>
 
 	<div class="row">

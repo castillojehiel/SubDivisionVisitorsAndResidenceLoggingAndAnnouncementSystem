@@ -13,7 +13,7 @@
 
 <div class="mainContent" >
 
-    <h2 class="page-title"><span class="fas fa-newspaper"> </span> Announcements</h2>
+    <h2 class="page-title"><span class="fas fa-comments"> </span> Announcements</h2>
     <hr/>
 
     <div class="row">

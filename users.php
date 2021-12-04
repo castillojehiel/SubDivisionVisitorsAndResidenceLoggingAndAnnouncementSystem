@@ -13,7 +13,7 @@
 
 <div class="mainContent" >
 
-    <h2 class="page-title"><span class="fas fa-users"> </span> Users</h2>
+    <h2 class="page-title"><span class="fas fa-users-cog"> </span> Users</h2>
     <hr/>
 
     <div class="row">

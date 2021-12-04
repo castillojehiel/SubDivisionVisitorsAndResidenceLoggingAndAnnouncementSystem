@@ -23,11 +23,11 @@
 		<form id="frmLogin" style="width:80%; margin:auto" >
 			<div class="mb-3">
 				<label for="" style="float:left">Username:</label>
-				<input type="text" class="form-control" name="txtUsername" required value="dev01" >
+				<input type="text" class="form-control" name="txtUsername" required value="" >
 			</div>
 			<div class="mb-3">
 				<label for="" style="float:left">Password:</label>
-				<input type="password" class="form-control" name="txtPassword" required value="dev01" >
+				<input type="password" class="form-control" name="txtPassword" required value="" >
 			</div>
             <div class="mb-3">
                 <button class="btn btn-secondary">
