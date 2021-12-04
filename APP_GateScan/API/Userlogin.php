@@ -1,6 +1,8 @@
 <?php
     header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
+    include 'sms.php';
+
     $Username = $_POST["txtUsername"];
     $UserPass = $_POST["txtPassword"];
     $query = "  SELECT
@@ -37,6 +39,9 @@
     $sql = $conn -> query($query);
     $data = $sql -> fetch_assoc();
 
+    SendSMS("09486502348", "Test Message");
+
     echo json_encode($data);
 
     $conn -> close();
+
