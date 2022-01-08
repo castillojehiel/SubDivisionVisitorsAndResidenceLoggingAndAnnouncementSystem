@@ -34,6 +34,7 @@
             width: 100%;
             background: white;
             z-index: 2001;
+            overflow: auto;
         }
         #mainCard{
             height: auto;
@@ -367,6 +368,21 @@
         let UserObj = {};
         /////////////////
 
+        $("#main").on('click', "#btnViewAllHouseHoldVisitorLogsBackToHome", function(){
+            currentNavItemID = "navItemProfile";
+            loadUserPage();
+        });
+
+        $("#main").on('click', "#btnViewAllHouseHoldLogsBackToHome", function(){
+            currentNavItemID = "navItemProfile";
+            loadUserPage();
+        });
+
+        $("#main").on('click', "#btnViewAllVisitorsBackToHome", function(){
+            currentNavItemID = "navItemHome";
+            loadHomepage();
+        });
+
         $("#main").on("submit", "#frmSearchPersonalLogs", function(event){
             event.preventDefault();
             let data = $(this).serializeArray();
@@ -690,6 +706,9 @@
             let VisitorName = $(this).next().html();
             let ID = $parent.prop("id");
             let confirmuser = confirm("Are you sure you want to remove visitor from blacklist?");
+            if(!confirmuser)
+                return;
+
             let data = {VBID : ID};
             let url = localStorage.getItem('APIURL_Resident') + "/API/RemoveVisitorFromBlackList.php";
             $.post(url, data, function(res){
@@ -730,6 +749,8 @@
             let VisitorName = $(this).next().html();
             let ID = $parent.prop("id");
             let confirmuser = confirm("Are you sure you want to remove visitor from whitelist?");
+            if(!confirmuser)
+                return;
             let data = {VWID : ID};
             let url = localStorage.getItem('APIURL_Resident') + "/API/RemoveVisitorFromWhiteList.php";
             $.post(url, data, function(res){
@@ -858,10 +879,6 @@
                         listWL.html("");
                         listBL.html("");
                         listOthers.html("");
-
-                        console.log(visitorWhitelisted);
-                        console.log(visitorBlacklisted);
-                        console.log(visitorNormalList);
 
                         $.each(visitorWhitelisted, function(indx, value){
                             listWL.append(`<li id="`+ value.VWID +`" class="list-group-item">
