@@ -574,7 +574,7 @@
         $("#main").on('submit', '#frmNewHouseHoldVehicle', function(event){
             event.preventDefault();
             let data = $(this).serialize();
-            let url = localStorage.getItem('APIURL_Resident') + "/API/GetHouseHoldVisitorLogs.php";
+            let url = localStorage.getItem('APIURL_Resident') + "/API/AddHouseholdVehicle.php";
             $.post(url, data, function(res){
                 if(res.result){
                         alert("New household vehicle was successfully saved.");  

@@ -2,8 +2,8 @@
     require '../Connection.php';
     $keyword = $_POST["txtSearch"];
     $isShowAll = true;
-    if(isset($POST["isShowAll"])){
-		$isActive = $POST["isShowAll"];
+    if(isset($_POST["isShowAll"])){
+		$isActive = $_POST["isShowAll"];
 	}
 
 
