@@ -131,6 +131,26 @@
                             alert("Error has occured. " + message);
                         });             
                     }
+                    else if(indicator == "VEH"){
+                        let url = localStorage.getItem('APIURL_GateScan') + "/API/InsertNewVehicleGateLog.php";
+                        let obj = JSON.parse(localStorage.getItem("UserObj"));
+                        let data = {QRCode : decodedText, ScannedByUser : obj.UserID};
+                        $.post(url, data, function(res){
+                            if(res.result){
+                                alert("Gate pass successfully saved.");
+                            }
+                            else{
+                                alert("Transaction failed." + res.message);
+                            }
+                        }, 'json')
+                        .fail( function(xhr, status, message){
+                            alert("Error has occured. " + message);
+                        });   
+                    }
+                    else
+                    {
+                        alert("Invalid QR Codee")
+                    }
                 }
             }
 
