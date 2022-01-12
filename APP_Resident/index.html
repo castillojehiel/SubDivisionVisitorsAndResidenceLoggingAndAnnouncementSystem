@@ -359,6 +359,39 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="mdlEditVehicleDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Update Vehicle Details</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="max-height: 400px !important;">
+                <form id="frmEditVehicleDetails">
+                    <div class="form-group mb-3">
+                        <label>Model :</label>
+                        <input type="text" name="txtModel" class="form-control" required />
+                        <input type="hidden" name="txtVehicleID" />
+                        <input type="hidden" name="txtUpdatedBy" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Color :</label>
+                        <input type="text" name="txtColor" class="form-control" required />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Plate Number :</label>
+                        <input type="text" name="txtPlateNumber" class="form-control" required />
+                    </div>
+                </form>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="frmEditVehicleDetails" class="btn btn-primary">Save changes</button>
+            </div>
+		</div>
+	</div>
+</div>
 <!-- end of report dialogs -->
 
 
@@ -367,6 +400,82 @@
         let currentNavItemID = "";
         let UserObj = {};
         /////////////////
+
+        $("#main").on('click', ".btnRemoveVehicle", function(){
+            let ID = $(this).parent().attr("id");
+            let ans = confirm("Are you sure you want to remove this record?");
+            if(ans){
+                let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                let data = {VehicleID : ID, UpdatedBy : obj.DataCenterID};
+                let url = localStorage.getItem('APIURL_Resident') + "/API/RemoveHouseHoldVehicle.php"; 
+                $.post(url, data, function(res){
+                if(res){
+                    alert("Successfully saved!");
+                    loadUserPage();
+                    $(".modal").modal("hide");
+                }
+                else{
+                    alert("Failed to save updates. Please try again.")
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+            }
+        });
+
+        $("#frmEditVehicleDetails").submit( function(event){
+            event.preventDefault();
+            let data = $(this).serialize();
+            let url = localStorage.getItem('APIURL_Resident') + "/API/UpdateVehicleDetails.php"; 
+            $.post(url, data, function(res){
+                if(res){
+                    alert("Successfully saved!");
+                    loadUserPage();
+                    $(".modal").modal("hide");
+                }
+                else{
+                    alert("Failed to save updates. Please try again.")
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        });
+
+        $("#main").on('click', ".btnEditVehicle", function(){
+            let ID = $(this).parent().attr("id");
+            let url = localStorage.getItem('APIURL_Resident') + "/API/GetVehicleDetails.php?ID=" + ID;
+            $.get(url, function(res){
+                if(res != null){
+                    let $frm = $("#frmEditVehicleDetails");
+                    $("#frmEditVehicleDetails").trigger("reset");
+                    let obj = JSON.parse(localStorage.getItem("UserObj_Resident"));
+                    console.log(res);
+                    $frm.find("input[name=txtModel]").val(res.Model);
+                    $frm.find("input[name=txtColor]").val(res.Color);
+                    $frm.find("input[name=txtPlateNumber]").val(res.PlateNumber);
+                    $frm.find("input[name=txtVehicleID]").val(ID);
+                    $frm.find("input[name=txtUpdatedBy]").val(obj.DataCenterID);
+
+                    $("#mdlEditVehicleDetails").modal("show");
+                }
+                else{
+                    alert("Error has occured. Please check connection to server.");
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+
+            
+        });
+
+        $("#main").on('click', ".btnQRVehicle", function(){
+            let QRCode = $(this).parent().find("div").html();
+            console.log(QRCode);
+            loadQRCodePage_Custom(QRCode);
+        });
 
         $("#main").on('click', "#btnViewAllHouseHoldVisitorLogsBackToHome", function(){
             currentNavItemID = "navItemProfile";
@@ -578,6 +687,11 @@
 
         $("#main").on('click', '#btnDownloadQR', function(){
 			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+            // var link = document.createElement('a');
+            // link.download = 'QRCode.png';
+            // link.href = document.getElementById('cvsQR').toDataURL()
+            // link.click();
+            
 		});
 
         $("#main").on('click', "#btnLogout", function(){
@@ -1170,6 +1284,7 @@
 
         function loadQRCodePage(){
             $.get("QRCode.html", function(data){
+            //$.get("API/qrrender.php", function(data){
                 $("#main").html(data);
                 $("#qrcode").qrcode({
 						text : UserObj.QRCode,
@@ -1177,6 +1292,20 @@
 						height : $("#qrcode").width()
 					});
                 $("#qrcodeString").html(UserObj.QRCode)
+                $("#qrcode").find("canvas").attr("id", "cvsQR");
+            });
+        }
+
+        function loadQRCodePage_Custom(QRCode){
+            $.get("QRCode.html", function(data){
+            //$.get("API/qrrender.php", function(data){
+                $("#main").html(data);
+                $("#qrcode").qrcode({
+						text : QRCode,
+						width : $("#qrcode").width(),
+						height : $("#qrcode").width()
+					});
+                $("#qrcodeString").html(QRCode)
                 $("#qrcode").find("canvas").attr("id", "cvsQR");
             });
         }
@@ -1234,7 +1363,14 @@
                     $list.html("");
                     console.log(res);
                     $.each(res, function(index, value){
-                        $list.append(`<li class="list-group-item">`+ value.Model +` | `+ value.PlateNumber +`</li>`)
+                        $list.append(`<li id="`+ value.VehicleID +`" class="list-group-item">
+                                        <button class="btn btn-primary btnQRVehicle"><span class="fas fas fa-qrcode"></span></button>
+                                        <button class="btn btn-warning btnEditVehicle"><span class="fas fa-edit"></span></button>
+                                        <button class="btn btn-danger btnRemoveVehicle"><span class="fas fa-trash"></span></button>
+                                        <div style="display:none">`+ value.QRCode +`</div>
+                                        `
+                                        + value.Model +` | `+ value.PlateNumber +
+                                        `</li>`)
                     })
                 }, 'json')
 

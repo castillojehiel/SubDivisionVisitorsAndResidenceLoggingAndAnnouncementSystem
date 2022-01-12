@@ -3,12 +3,10 @@
     require 'Connection.php';
     $ID = $_GET["ID"];
 
-    $query = "SELECT * FROM vehicles WHERE HouseHoldID = '$ID' AND isActive = 1";
-
+    $query = "SELECT * FROM Vehicles WHERE VehicleID = '$ID'";
     $sql = $conn -> query($query);
-
-    $data = $sql -> fetch_all(MYSQLI_ASSOC);
+    $data = $sql -> fetch_assoc();
 
     echo json_encode($data);
 
-    $conn -> close();
+    $sql -> close();
