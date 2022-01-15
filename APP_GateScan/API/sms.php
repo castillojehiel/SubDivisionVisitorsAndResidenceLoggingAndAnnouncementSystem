@@ -3,7 +3,7 @@
     require_once "vendor/autoload.php";
     function SendSMSToHouseHoldContactPersons($HouseHoldID, $Message){
         //query for all HouseholdID contact person mobile numbers
-        
+        include 'Connection.php';
         $basic  = new \Vonage\Client\Credentials\Basic("3b2aa728", "k87dDzouF4ri7Idy");
         $client = new \Vonage\Client($basic);
 

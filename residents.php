@@ -753,6 +753,7 @@
 
 		$("#btnNew").click( function(){
 			$("#frmNewResident").trigger('reset');
+			document.getElementById('newResidentImg').removeAttribute('src');
 			$("#mdlNewResident").modal('show');
 		})
 

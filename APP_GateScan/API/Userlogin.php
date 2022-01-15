@@ -39,7 +39,7 @@
     $sql = $conn -> query($query);
     $data = $sql -> fetch_assoc();
 
-    SendSMS("09486502348", "Test Message");
+    //SendSMS("09486502348", "Test Message");
 
     echo json_encode($data);
 

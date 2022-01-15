@@ -1,6 +1,7 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
+    include 'sms.php';
     $VisitorID = $_POST["txtVisitorID"];
     $VisitorQRCode = $_POST["txtVisitorQRCode"];
     $HouseholdID = $_POST["txtHouseHoldID"];

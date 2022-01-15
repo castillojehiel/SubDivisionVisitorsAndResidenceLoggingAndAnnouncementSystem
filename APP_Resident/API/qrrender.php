@@ -1,36 +1,14 @@
-<!DOCTYPE html>
-    <style>
-        #qrcode{
-            width: 90vw;
-            margin: 0 auto;
-            padding: 10px;
-            text-align: center;
-            align-content: center;
-        }
-    </style>
-    <script src="../js/jquery_3.6.js"></script>
-    <script src="../js/jquery.qrcode.min.js"></script>
-    <script src="../js/reImg.js"></script>
-    <div class="row">
-        <div id="qrcode">
-            
-        </div>
-    </div>
-    <div class="row">
-        <h5 id="qrcodeString" style="text-align: center;"></h5>
-    </div>
+<?php
+    $img = $_POST["QRCode"];
+    $qrcodetext = $_POST["QRCodeText"];
+    $img = str_replace('data:image/png;base64,', '', $img);
+    $img = str_replace(' ', '+', $img);
+    $fileData = base64_decode($img);
+    //saving
+    $fileName = 'QRCodes/'. $qrcodetext .'.png';
+    file_put_contents($fileName, $fileData);
 
-    <script>
-        $(document).ready( function(){
-            let QRCode = "asd";
-            $("#qrcode").qrcode({
-				text : QRCode,
-				width : $("#qrcode").width(),
-				height : $("#qrcode").width()
-			});
-            $("#qrcodeString").html(QRCode)
-            $("#qrcode").find("canvas").attr("id", "cvsQR");
-            ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
-        })
-    </script>
-</html>
+    $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $qrcodeDlLink = str_replace("qrrender.php","QRCodes/".$qrcodetext.".png",$actual_link);
+
+    echo json_encode(array("result" => "true", "URL" => $qrcodeDlLink, "filename" =>  $qrcodetext.".png"));

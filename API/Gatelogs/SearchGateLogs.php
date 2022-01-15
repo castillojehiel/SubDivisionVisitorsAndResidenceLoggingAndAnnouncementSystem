@@ -69,6 +69,7 @@
                         OR ('$Visitors' = 1 AND dc.isResident = 0)
                         OR ('$Vehicles' = 1 AND gpl.isVehicleLog = 1)
                     )
+                ORDER BY gpl.GPLogID DESC
                 ";
 
     $sql = $conn -> query($query);
