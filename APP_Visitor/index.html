@@ -162,7 +162,19 @@
         /////////////////
 
         $("#main").on('click', '#btnDownloadQR', function(){
-			ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+			// ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
+            let $img = document.getElementById('cvsQR').toDataURL();
+            let url = localStorage.getItem('APIURL_Resident') + "/API/qrrender.php";
+            let data = {QRCode : $img, QRCodeText : $("#qrcodeString").html()};
+            $.post(url, data, function(res){
+                const link = document.createElement("a");
+                link.href = res.URL;
+                link.download = res.filename;
+                link.click();
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
 		});
 
         $("#main").on('click', "#btnLogout", function(){

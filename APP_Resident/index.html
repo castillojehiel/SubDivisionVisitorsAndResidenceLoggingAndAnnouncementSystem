@@ -654,7 +654,7 @@
                     if(res.result){
                         alert("New photo has been updated successfully");  
                         obj.DataCenterPhoto = data.Base64;
-                        localStorage.setItem("UserObj_Resident") = obj;
+                        localStorage.setItem("UserObj_Resident", JSON.stringify(obj));
                         loadUserPage();
                     }
                     else{
