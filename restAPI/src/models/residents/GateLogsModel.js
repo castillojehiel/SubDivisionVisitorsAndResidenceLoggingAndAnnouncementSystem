@@ -101,4 +101,98 @@ GateLogs.RejectVisitation = (params, result) => {
     );
 }
 
+
+GateLogs.GetPersonalGateLogs = (params, result) =>{
+    dbConn.query(
+        `SELECT 
+            gpl.CreatedDateTime
+            FROM GatePassLogs gpl
+            WHERE DataCenterID = '${params.DataCenterID}'
+                    AND (CONVERT(gpl.CreatedDateTime, DATE) >= '${params.DateFrom}' AND CONVERT(gpl.CreatedDateTime, DATE) <= '${params.DateTo}')
+            ORDER BY gpl.CreatedDateTime DESC`, 
+        (err, res) =>{
+        if(err){
+            console.log("Error..." , err);
+            result(null, err);
+        }
+        else{
+            console.log("Success", res);
+            result(null, res);
+        }
+    });
+}
+
+
+GateLogs.GetHouseholdGateLogs = (params, result) =>{
+    dbConn.query(
+        `SELECT
+            gpl.GPLogID,
+            CONCAT(dc.FirstName, ' ', dc.MiddleName, ' ', dc.LastName, ' ', dc.Suffix) as MemberName,
+            gpl.CreatedDateTime as DateOfLogs 
+            FROM GatePassLogs gpl
+            LEFT JOIN DataCenter dc
+                ON gpl.DataCenterID = dc.DataCenterID
+            LEFT JOIN HouseHolds hh
+                ON dc.HouseHoldID = hh.HouseHoldID
+            WHERE   hh.HouseHoldID = '${params.HouseHoldID}'
+                    AND (CONVERT(gpl.CreatedDateTime, DATE) >= '${params.DateFrom}' AND CONVERT(gpl.CreatedDateTime, DATE) <= '${params.DateTo}')
+            ORDER BY gpl.CreatedDateTime DESC`, 
+        (err, res) =>{
+        if(err){
+            console.log("Error..." , err);
+            result(null, err);
+        }
+        else{
+            console.log("Success", res);
+            result(null, res);
+        }
+    });
+}
+
+GateLogs.GetHouseholdVisitorsGateLogs = (params, result) =>{
+    dbConn.query(
+        `SELECT
+            vl.VLID,
+            CONCAT(dc.FirstName, ' ', dc.MiddleName, ' ', dc.LastName, ' ', dc.Suffix) as VisitorName,
+            vl.RequestDateTime,
+            vl.ReasonForVisit,
+            CASE    
+                WHEN vl.isApproved = 1 THEN
+                    CASE 
+                        WHEN ISNULL(app.DataCenterID) = 1 THEN
+                            'WHITELISTED'
+                        ELSE 
+                            CONCAT(app.FirstName, ' ', app.MiddleName, ' ', app.LastName, ' ', app.Suffix)
+                        END
+                ELSE ''
+                END as ApprovedBy,
+            IFNULL(vl.ApprovedDateTime, '') as ApprovedDateTime,
+            CASE 
+                WHEN vl.isApproved = 1 THEN
+                    'APPROVED'
+                WHEN vl.isActive = 0 THEN
+                    'REJECTED'
+                ELSE
+                    'PENDING'
+                END as VisitStatus
+            FROM VisitorLogs vl
+                LEFT JOIN DataCenter dc
+                    ON vl.VisitorID = dc.DataCenterID
+                LEFT JOIN DataCenter app
+                    ON vl.ApprovedBy = app.DataCenterID
+            WHERE   vl.HouseHoldID = '${params.HouseHoldID}'
+                    AND (CONVERT(vl.RequestDateTime, DATE) >= '${params.DateFrom}' AND CONVERT(vl.RequestDateTime, DATE) <= '${params.DateTo}')
+            ORDER BY vl.RequestDateTime DESC`, 
+        (err, res) =>{
+        if(err){
+            console.log("Error..." , err);
+            result(null, err);
+        }
+        else{
+            console.log("Success", res);
+            result(null, res);
+        }
+    });
+}
+
 module.exports = GateLogs;

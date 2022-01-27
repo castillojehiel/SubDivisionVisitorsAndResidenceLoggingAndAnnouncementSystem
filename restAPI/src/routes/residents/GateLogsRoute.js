@@ -9,4 +9,8 @@ router.get('/Visitors/ForApproval/:HouseHoldID', GateLogsController.GetHouseHold
 router.post('/Visitors/ApproveVisitation', GateLogsController.ApproveVisitation);
 router.post('/Visitors/RejectVisitation', GateLogsController.RejectVisitation);
 
+router.get('/GateLogs/Personal/:DataCenterID/:DateFrom/:DateTo', GateLogsController.GetPersonalGateLogs);
+router.get('/GateLogs/Household/:HouseHoldID/:DateFrom/:DateTo', GateLogsController.GetHouseholdGateLogs);
+router.get('/GateLogs/Visitors/:HouseHoldID/:DateFrom/:DateTo', GateLogsController.GetHouseholdVisitorsGateLogs);
+
 module.exports = router;

@@ -817,7 +817,7 @@
 
         $("#main").on("click", '#listHouselHoldVisitorsForApproval .btnViewVisitApplication', function(){
             let ID = $(this).parent().parent().parent().prop("id");
-            $.get("viewvisitapplication.html", function(data){
+            $.get("ViewVisitApplication.html", function(data){
                 $("#main").html(data);
                 let url = localStorage.getItem('APIURL_Resident') + "/API/GetVisitApplicationDetailsByID.php?ID="+ID;
                 $.get(url, function(res){
@@ -1062,12 +1062,15 @@
             let ID = $(this).parent().parent().parent().prop('id');
             $.get("viewannouncements.html", function(data){
                 $("#main").html(data);
-                let url = "API/GetAnnouncementDetails.php?ID="+ID;
+                let url = localStorage.getItem('APIURL_Resident') + "/API/GetAnnouncementDetails.php?ID="+ID;
                 $.get(url, function(res){
                     $("#announcementTitle").html(res.Title);
                     $("#announcementType").html(res.AnnouncementType);
                     $("#announcementDetails").html(res.Details);
-                }, 'json');
+                }, 'json')
+                .fail( function(xhr, status, message){
+                    alert("Error has occured. " + message + ". status : " + status + " xhr : " + xhr);
+                });
             });
         });
 

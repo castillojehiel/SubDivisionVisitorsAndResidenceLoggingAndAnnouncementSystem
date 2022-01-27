@@ -38,3 +38,39 @@ exports.RejectVisitation = (req, res) =>{
         }
     })
 }
+
+exports.GetPersonalGateLogs = (req, res) =>{
+    gateLogsModel.GetPersonalGateLogs(req.params, (err, gatelogs) =>{
+        if(err){
+            res.send(err);
+        }
+        else{
+            console.log(gatelogs);
+            res.send(gatelogs);
+        }
+    });
+}
+
+exports.GetHouseholdGateLogs = (req, res) =>{
+    gateLogsModel.GetHouseholdGateLogs(req.params, (err, gatelogs) =>{
+        if(err){
+            res.send(err);
+        }
+        else{
+            console.log(gatelogs);
+            res.send(gatelogs);
+        }
+    });
+}
+
+exports.GetHouseholdVisitorsGateLogs = (req, res) =>{
+    gateLogsModel.GetHouseholdVisitorsGateLogs(req.params, (err, gatelogs) =>{
+        if(err){
+            res.send(err);
+        }
+        else{
+            console.log(gatelogs);
+            res.send(gatelogs);
+        }
+    });
+}

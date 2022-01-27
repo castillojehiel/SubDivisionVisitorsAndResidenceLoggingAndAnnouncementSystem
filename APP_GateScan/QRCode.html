@@ -122,6 +122,7 @@
                         let url = localStorage.getItem('APIURL_GateScan') + "/API/GetVisitorDetailsByQR.php";
                         let data = {QRCode : decodedText};
                         $.post(url, data, function(res){
+                            console.log(res);
                             let $frm = $("#frmVisitorForm");
                             $frm.find("input[name=txtVisitorName]").val(res.VisitorCompleteName);
                             $frm.find("input[name=txtVisitorID]").val(res.DataCenterID);

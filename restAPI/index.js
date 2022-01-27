@@ -8,10 +8,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // parse request data content type application/x-www-form-rulencoded
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({limit: '5000mb', extended: false}));
 
 // parse request data content type application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'5000mb'}));
 
 // define root route
 app.get('/', (req, res)=>{
@@ -42,6 +42,27 @@ app.use('/Fs_Resident/api/v1/Announcement', announcementRoute);
 const visitorRoute = require('./src/routes/residents/VisitorsRoute');
 //create gatelogs route
 app.use('/Fs_Resident/api/v1/Resident', visitorRoute); 
+
+//import reports route
+const reportsRoute = require('./src/routes/residents/ReportsRoute');
+//create gatelogs route
+app.use('/Fs_Resident/api/v1/Resident', reportsRoute); 
+
+//import reports route
+const QRCodeRoute = require('./src/routes/QRCodeRoute');
+//create gatelogs route
+app.use('/QRCode', QRCodeRoute); 
+
+//import polling route
+const VehiclesRoute = require('./src/routes/residents/VehiclesRoute');
+//create gatelogs route
+app.use('/Vehicles', VehiclesRoute); 
+
+
+//import polling route
+const PollingRoute = require('./src/routes/residents/PollingRoute');
+//create gatelogs route
+app.use('/Polling', PollingRoute); 
 
 
 
