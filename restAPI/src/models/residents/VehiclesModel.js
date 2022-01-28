@@ -27,4 +27,79 @@ Vehicle.GetHouseHoldVehicles = (HouseHoldID, result) =>{
         });
 }
 
+Vehicle.AddNewVehicle = (params, result) => {
+    dbConn.query(
+        `INSERT INTO vehicles (HouseholdID, Model, Color, PlateNumber, CreatedBy, CreatedDateTime)
+        VALUES('${params.HouseHoldID}', '${params.Model}', '${params.Color}', '${params.PlateNumber}', '${params.CreatedBy}', CURRENT_TIMESTAMP)`,
+        (err, res) =>{
+            if(err){
+                console.log("Error..." , err);
+                result(null, err);
+            }
+            else{
+                console.log("Success", res);
+                result(null, res);
+            }
+        }
+    );
+}
+
+Vehicle.UpdateQRCode = (ID, result) =>{
+    console.log("-------update QR------------");
+    console.log(ID)
+    var pad = "00000000";
+    var qrcode = "VEH" + (pad+ID).slice(-pad.length);
+    dbConn.query(
+        `UPDATE vehicles SET QRCode = '${qrcode}' WHERE VehicleID = '${ID}'`, 
+        (err, res) =>{
+            if(err){
+                console.log("Error..." , err);
+                result(null, err);
+            }
+            else{
+                console.log("Success", res);
+                result(null, res);
+            }
+        });
+}
+
+Vehicle.RemoveVehicle = (params, result) =>{
+    dbConn.query(
+        `UPDATE Vehicles
+            SET 
+                isActive = 0
+        WHERE VehicleID = '${params.VehicleID}'`, 
+        (err, res) =>{
+            if(err){
+                console.log("Error..." , err);
+                result(null, err);
+            }
+            else{
+                console.log("Success", res);
+                result(null, res);
+            }
+        });
+}
+
+Vehicle.UpdateVehicle = (params, result) =>{
+    dbConn.query(
+        `UPDATE Vehicles
+            SET 
+                Model = '${params.Model}',
+                Color = '${params.Color}',
+                PlateNumber = '${params.PlateNumber}'
+        WHERE VehicleID = '${params.VehicleID}'`, 
+        (err, res) =>{
+            if(err){
+                console.log("Error..." , err);
+                result(null, err);
+            }
+            else{
+                console.log("Success", res);
+                result(null, res);
+            }
+        });
+}
+
+
 module.exports = Vehicle;

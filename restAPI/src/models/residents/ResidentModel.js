@@ -145,8 +145,8 @@ Resident.RegisterNewHouseholdMember = (Resident, result) =>{
 }
 
 Resident.UpdateNewResidentQRCode = (DataCenterID, result) =>{
-    var pad = "000000";
-    var qrcode = (pad+DataCenterID).slice(-pad.length);
+    var pad = "00000000";
+    var qrcode = "RES" + (pad+DataCenterID).slice(-pad.length);
     dbConn.query(
         `UPDATE DataCenter SET QRCode = '${qrcode}' WHERE DataCenterID = '${DataCenterID}'`, 
         (err, res) =>{
