@@ -4,9 +4,9 @@ const mysql = require('mysql');
 
 const dbConn = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'fiestahomesdb',
+	user: 'root',
+	password: '',
+	database: 'fiestahomesdb_live',
 	typeCast: function castField( field, useDefaultTypeCasting ) {
 
 		// We only want to cast bit fields that have a single-bit in them. If the field
@@ -33,3 +33,9 @@ dbConn.connect(function(error){
 })
 
 module.exports = dbConn;
+
+//localhost
+// host: 'localhost',
+// user: 'root',
+// password: '',
+// database: 'fiestahomesdb_live',

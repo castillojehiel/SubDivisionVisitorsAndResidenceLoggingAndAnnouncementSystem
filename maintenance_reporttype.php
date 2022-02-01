@@ -68,7 +68,7 @@
                 let $frm = $("#frmEditReportType");
                 $frm.find("input[name=txtDescription]").val(res.Description);
                 $frm.find("input[name=txtID]").val(res.ReportTypeID);
-                $frm.find("input[name=chkIsActive]").prop("checked", res.isActive);
+                $frm.find("input[name=chkIsActive]").prop("checked", (parseInt(res.isActive) == 1 ? true : false));
                 $("#mdlEditReportType").modal("show");
             }, 'json')
             .fail( function(xhr, status, message){
@@ -78,6 +78,7 @@
 
         $("#frmEditReportType").submit( function(event){
             event.preventDefault();
+            return false;
             let data = $(this).serialize();
             let url = "API/Maintenance/ReportTypes/UpdateReportType.php";
             $.post(url, data, function(res){
@@ -97,6 +98,7 @@
 
         $("#frmNewReportType").submit( function(event){
             event.preventDefault();
+            return false;
             let data = $(this).serialize();
             let url = "API/Maintenance/ReportTypes/CreateReportType.php";
             $.post(url, data, function(res){

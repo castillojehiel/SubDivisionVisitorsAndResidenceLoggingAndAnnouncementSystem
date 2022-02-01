@@ -28,11 +28,7 @@
                 CASE
                     WHEN    (ann.isActive = 1
                             AND IFNULL(ann.isPublished,0) = 0
-                            AND (
-                                    UnpublishedBy IS NULL 
-                                    OR
-                                    (UnpublishedBy IS NOT NULL AND IFNULL(ann.isPublished,0) = 0 AND CONVERT(ann.ExpiryDate, DATE) > CONVERT(CURRENT_TIMESTAMP, DATE))
-                                )
+                            
                             AND (CONVERT(ann.ExpiryDate, DATE) > CONVERT(CURRENT_TIMESTAMP, DATE)) 
                             )
                                 THEN true
@@ -41,7 +37,6 @@
                 CASE
                     WHEN    ann.isActive = 1 
                             AND IFNULL(ann.isPublished,0) = 1
-                            AND UnpublishedBy IS NULL 
                             AND (CONVERT(ann.ExpiryDate, DATE) > CONVERT(CURRENT_TIMESTAMP, DATE)) 
                                 THEN true
                     ELSE false  

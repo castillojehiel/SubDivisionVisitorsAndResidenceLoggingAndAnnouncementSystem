@@ -4,7 +4,7 @@
     function SendSMSToHouseHoldContactPersons($HouseHoldID, $Message){
         //query for all HouseholdID contact person mobile numbers
         include 'Connection.php';
-        $basic  = new \Vonage\Client\Credentials\Basic("3b2aa728", "k87dDzouF4ri7Idy");
+        $basic  = new \Vonage\Client\Credentials\Basic("9e6f2f01", "v8KDbG0khWWItUsm");
         $client = new \Vonage\Client($basic);
 
         $query = "SELECT 
@@ -25,7 +25,7 @@
     }
 
     function SendSMS($MobileNo, $Message){
-        $basic  = new \Vonage\Client\Credentials\Basic("3b2aa728", "k87dDzouF4ri7Idy");
+        $basic  = new \Vonage\Client\Credentials\Basic("9e6f2f01", "v8KDbG0khWWItUsm");
         $client = new \Vonage\Client($basic);
 
         $ContactNo = "63" . substr($MobileNo,-10);

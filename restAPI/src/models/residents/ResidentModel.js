@@ -29,7 +29,7 @@ let Resident = (resident) =>{
 
 Resident.residentLogin = (ResidentDetails, result) =>{
     console.log(ResidentDetails);
-    dbConn.query(`SELECT
+    dbConn.query(`SELECT 
                     dc.DataCenterID,
                     dc.FirstName,
                     dc.MiddleName,
@@ -61,7 +61,8 @@ Resident.residentLogin = (ResidentDetails, result) =>{
                 WHERE   dc.isActive = 1
                         AND dc.isResident = 1   
                         AND (dc.QRCode = '${ResidentDetails.Username}')
-                        AND dc.UserPass = '${ResidentDetails.Password}'`, (err, res) =>{
+                        AND dc.UserPass = '${ResidentDetails.Password}'
+                LIMIT 1`, (err, res) =>{
         if(err){
             console.log("Error..." , err);
             result(null, err);

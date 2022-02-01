@@ -11,7 +11,7 @@
     $query = "UPDATE announcements 
                 SET
                     isPublished = 0,
-                    UnpublishedBy = '$ID',
+                    UnpublishedBy = '$UpdatedBy',
                     UnpublishedDateTime = CURRENT_TIMESTAMP
                 WHERE AnnouncementID = '$ID'
             ";

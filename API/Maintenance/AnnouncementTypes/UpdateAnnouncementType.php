@@ -3,9 +3,9 @@
 
     $Description = $_POST["txtDescription"];
     $ID = $_POST["txtID"];
-    $isActive = false;
-    if(isset($POST["chkIsActive"])){
-		$isActive = $_POST["chkIsActive"];
+    $isActive = true;
+    if(!isset($_POST["chkIsActive"])){
+		$isActive = false;
 	}
     $UpdatedBy = 1;
 	if(isset($_SESSION["UserID"])){

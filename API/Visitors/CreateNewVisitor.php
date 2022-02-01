@@ -12,7 +12,7 @@
 	if(isset($_SESSION["UserID"])){
 		$CreatedBy = $_SESSION["UserID"];
     }
-    $isActive = false;
+    $isActive = true;
     if(isset($_POST["chkIsActive"])){
 		$isActive = $_POST["chkIsActive"];
 	}

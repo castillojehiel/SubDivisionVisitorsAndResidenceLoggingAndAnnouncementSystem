@@ -37,7 +37,7 @@
 	//insert line
 	foreach($HouseHoldMembers as $item){
 		$data = get_object_vars($item);
-		if(filter_var($data["isContactPerson"], FILTER_VALIDATE_BOOLEAN)){
+		if($data["isContactPerson"] == 1){
             $ID = $ID;
             $DCID = $data["DataCenterID"];
             $active = intval($isActive);

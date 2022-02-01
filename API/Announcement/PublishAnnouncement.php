@@ -11,7 +11,7 @@
     $query = "UPDATE announcements 
                 SET
                     isPublished = 1,
-                    PublishedBy = '$ID',
+                    PublishedBy = '$UpdatedBy',
                     PublishedDateTime = CURRENT_TIMESTAMP
                 WHERE AnnouncementID = '$ID'
             ";

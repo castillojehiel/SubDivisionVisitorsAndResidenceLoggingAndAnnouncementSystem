@@ -4,9 +4,9 @@
 	if(isset($_SESSION["UserID"])){
 		$CreatedBy = $_SESSION["UserID"];
     }
-    $HouseHoldNo = $_POST["txtHouseNo"];
-    $Street = $_POST["txtStreet"];
-    $HouseHoldName = $_POST["txtHouseHoldName"];
+    $HouseHoldNo = $conn -> real_escape_string($_POST["txtHouseNo"]);
+    $Street = $conn -> real_escape_string($_POST["txtStreet"]);
+    $HouseHoldName = $conn -> real_escape_string($_POST["txtHouseHoldName"]);
     $isActive = true;
     if(isset($POST["chkIsActive"])){
 		$isActive = $POST["chkIsActive"];

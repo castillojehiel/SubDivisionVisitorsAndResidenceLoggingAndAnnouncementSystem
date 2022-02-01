@@ -2,9 +2,6 @@
     header("Access-Control-Allow-Origin: *");
     require 'Connection.php';
     $ID = $_GET["ID"];
-    $DateFrom = $_GET["DateFrom"];
-    $DateTo = $_GET["DateTo"];
-    $HouseHoldID = $_GET["HouseHoldID"];
 
     $query = "SELECT
                 vl.*,
@@ -18,9 +15,10 @@
                 LEFT JOIN HouseHolds hh
                     ON vl.HouseHoldID = hh.HouseHoldID
                 WHERE   vl.VisitorID = '$ID'
-                        AND (CONVERT(vl.RequestDateTime, DATE) >= '$DateFrom' AND CONVERT(vl.RequestDateTime, DATE) <= '$DateTo')
-                        AND ((vl.isApproved = 1 AND vl.isActive = 1) OR (vl.isActive = 0))
-                        AND vl.HouseHoldID = (CASE WHEN '$HouseHoldID' = 0 THEN vl.HouseHoldID ELSE vl.HouseHoldID END)
+                        AND (CONVERT(vl.RequestDateTime, DATE) >= CONVERT(CURRENT_TIMESTAMP, DATE) AND CONVERT(vl.RequestDateTime, DATE) <= CONVERT(CURRENT_TIMESTAMP, DATE))
+                        AND vl.isApproved = 0
+                        AND vl.isActive = 1
+                GROUP BY hh.HouseHoldID
                 ORDER BY RequestDateTime DESC
                 ";
     $sql = $conn -> query($query);

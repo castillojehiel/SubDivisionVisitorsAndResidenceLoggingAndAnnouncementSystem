@@ -209,4 +209,105 @@ $(document).ready(function(){
 })
 </script>
 
+
+<script defer="true">
+    $(document).ready( function(){
+
+        setTimeout(() => {
+            $("#frmReportTypesSearch").trigger('submit');
+        }, 500);
+        //----------------------
+
+        $("#tblList").on('click', '.btnEdit', function(){
+            let ID = $(this).parent().parent().prop('id');
+            let url = "API/Maintenance/ReportTypes/GetReportTypeDetailsByID.php?ID=" + ID;
+            $.get(url, function(res){
+                let $frm = $("#frmEditReportType");
+                $frm.find("input[name=txtDescription]").val(res.Description);
+                $frm.find("input[name=txtID]").val(res.ReportTypeID);
+                $frm.find("input[name=chkIsActive]").prop("checked", res.isActive);
+                $("#mdlEditReportType").modal("show");
+            }, 'json')
+            .fail( function(xhr, status, message){
+                msgPopUp("Error has occured", message, "danger");
+            });
+        });
+
+        $("#frmEditReportType").submit( function(event){
+            event.preventDefault();
+            let data = $(this).serialize();
+            let url = "API/Maintenance/ReportTypes/UpdateReportType.php";
+            $.post(url, data, function(res){
+                if(res.result){
+					msgPopUp("Saved!",  "Report Type has been successfully saved.", "success");
+					$(".modal").modal('hide');
+                    $("#frmReportTypesSearch").trigger('submit');
+				}
+				else{
+					msgPopUp("Error!",  "Failed to save Report Type.", "warning");
+				}
+            }, 'json')
+            .fail( function(xhr, status, message){
+                msgPopUp("Error has occured", message, "danger");
+            });
+        });
+
+        $("#frmNewReportType").submit( function(event){
+            event.preventDefault();
+            let data = $(this).serialize();
+            let url = "API/Maintenance/ReportTypes/CreateReportType.php";
+            $.post(url, data, function(res){
+                if(res.result){
+					msgPopUp("Saved!",  "Report Type has been successfully saved.", "success");
+					$(".modal").modal('hide');
+                    $("#frmReportTypesSearch").trigger('submit');
+				}
+				else{
+					msgPopUp("Error!",  "Failed to save Report Type.", "warning");
+				}
+            }, 'json')
+            .fail( function(xhr, status, message){
+                msgPopUp("Error has occured", message, "danger");
+            });
+        });
+
+        $("#btnNew").click( function(){
+            $("#mdlNewReportType").modal("show");
+        });
+
+        $("#frmReportTypesSearch").submit( function(event){
+            event.preventDefault();
+            let data = $(this).serialize();
+            let url = "API/Maintenance/ReportTypes/GetReportTypes.php";
+            $.post(url, data, function(res){
+                let $tbl = $("#tblList tbody");
+                $tbl.html("");
+                let tblContent = "";
+                $.each(res, function(index, value){
+                    $tbl.append(`
+                                <tr id="`+ value.ReportTypeID +`">
+                                    <td>
+                                        <button type="button" class="btn btn-warning btnEdit">
+                                            <span class="fas fa-edit"></span>
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td>`+ value.Description +`</td>
+                                    <td>` + (value.isActive == false ? 'Inactive' : 'Active') + `</td>
+                                    <td>` + value.CreatedBy + `</td>
+                                    <td>` + value.CreatedDateTime + `</td>
+                                    <td>` + (value.UpdatedBy == undefined ? '' : value.UpdatedBy) + `</td>
+                                    <td>` + (value.UpdatedDateTime == undefined ? '' : value.UpdatedDateTime) + `</td>
+                                </tr>
+                                `);
+                });
+            }, 'json')
+            .fail( function(xhr, status, message){
+                msgPopUp("Error has occured", message, "danger");
+            });
+        });
+
+    });
+</script>
+
 </html>

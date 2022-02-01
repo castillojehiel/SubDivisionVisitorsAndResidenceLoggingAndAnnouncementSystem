@@ -3,7 +3,7 @@
 
     $ID = $_POST["txtID"];
     $AnnouncementType = $_POST["cboAnnouncementType"];
-    $Title = $_POST["txtTitle"];
+    $Title = $conn -> real_escape_string($_POST["txtTitle"]);
     $ExpiryDate = $_POST["txtExpiryDate"];
     $Details = $conn -> real_escape_string($_POST["txtDetails"]);
     $UpdatedBy = 1;

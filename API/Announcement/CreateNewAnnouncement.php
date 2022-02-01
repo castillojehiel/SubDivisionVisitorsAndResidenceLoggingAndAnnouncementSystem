@@ -2,14 +2,14 @@
     require '../Connection.php';
 
     $AnnouncementType = $_POST["cboAnnouncementType"];
-    $Title = $_POST["txtTitle"];
+    $Title =  $conn -> real_escape_string($_POST["txtTitle"]);
     $ExpiryDate = $_POST["txtExpiryDate"];
-    $Details = $_POST["txtDetails"];
+    $Details =  $conn -> real_escape_string($_POST["txtDetails"]);
     $CreatedBy = 1;
 	if(isset($_SESSION["UserID"])){
 		$CreatedBy = $_SESSION["UserID"];
     }
-
+    
     $query = "INSERT INTO announcements (
                 ATID,
                 Title,
@@ -30,8 +30,7 @@
             )
             ";
     $sql = $conn -> query($query);
-    
-    echo json_encode(array("result" => $sql));
+    echo json_encode(array("result" => $sql, "message" => $conn -> error));
 
 	$conn -> close();
     

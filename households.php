@@ -161,7 +161,7 @@
 							<div class="row">
 								<table id="tblHouseHoldResidents" class="table table-condensed table-striped table-bordered">
 									<thead class="thead-dark">
-										<th width="150">Action</th>
+										<th width="200">Action</th>
 										<th>Name</th>
 										<th width="170">is House Hold Contact</th>
 									</thead>
@@ -284,7 +284,7 @@
 							<div class="row">
 								<table id="tblHouseHoldResidents" class="table table-condensed table-striped table-bordered">
 									<thead class="thead-dark">
-										<th width="150">Action</th>
+										<th width="200">Action</th>
 										<th>Name</th>
 										<th width="170">is House Hold Contact</th>
 									</thead>
@@ -706,6 +706,29 @@
 			});
 		});
 
+		$(document).on("change", ".chkHouseHoldContactPersonStatus", function(){
+			let ID = $(this).parent().parent().attr("id");
+			if($(this).prop("checked")){
+				HouseHoldResidents = HouseHoldResidents.map( x => {
+					let val = Object.assign({}, x);
+					if(val.DataCenterID == ID){
+						val.isContactPerson = 1
+					}
+					return val;
+				});
+			}
+			else{
+				HouseHoldResidents = HouseHoldResidents.map( x => {
+					let val = Object.assign({}, x);
+					if(val.DataCenterID == ID){
+						val.isContactPerson = 0
+					}
+					return val;
+				});
+			}
+			console.log(HouseHoldResidents);
+		});
+
 		function GetHouseHoldMembers(id, modalid){
 			let url = "API/HouseHolds/GetHouseHoldMembers.php?HouseHoldID="+id;
 			$.get(url, function(res){
@@ -714,6 +737,7 @@
 				$tbl.html('');
 				console.log(res);
 				$.each( res, function(indx, value){
+					console.log(value.ResidentName + " " + value.isContactPerson + " " + parseInt(value.isContactPerson));
 					$tbl.append(`
 							<tr id="`+ value.DataCenterID +`">
 								` + (
@@ -723,14 +747,15 @@
 											<span class="fas fa-trash" ></span>
 											Remove
 										</button>
-										<button class="btn btn-info btnSetAsContact">
-											<span class="fas fa-user" ></span>
-											Set as Contact
-										</button>
 									</td>` : ''
 								) + `
 								<td> `+ value.ResidentName +`</td>
-								<td>`+ (value.isContactPerson == 1 ? "Yes" : "No") +`</td>
+								<td> <input type="checkbox" class="chkHouseHoldContactPersonStatus" 
+										`
+										+ (parseInt(value.isContactPerson) == 1 ? "checked='checked'" : "") +
+										`
+										" /> 
+								</td>
 							</tr>
 						`);
 				});
@@ -828,13 +853,11 @@
 																<span class="fas fa-trash" ></span>
 																Remove
 															</button>
-															<button class="btn btn-info btnSetAsContact">
-																<span class="fas fa-user" ></span>
-																Set as Contact
-															</button>
 														</td>
 														<td> `+ obj.ResidentName +`</td>
-														<td>No</td>
+														<td> 
+															<input type="checkbox" class="chkHouseHoldContactPersonStatus" " /> 
+														</td>
 													</tr>
 												`);
 			}
@@ -920,13 +943,11 @@
 																<span class="fas fa-trash" ></span>
 																Remove
 															</button>
-															<button class="btn btn-info btnSetAsContact">
-																<span class="fas fa-user" ></span>
-																Set as Contact
-															</button>
 														</td>
 														<td> `+ obj.ResidentName +`</td>
-														<td>No</td>
+														<td> 
+															<input type="checkbox" class="chkHouseHoldContactPersonStatus" " /> 
+														</td>
 													</tr>
 												`);
 			}

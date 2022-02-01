@@ -63,11 +63,11 @@
             <form id="frmLogin" style="width:80%; margin:auto" >
                 <div class="mb-3">
                     <label for="" style="float:left">Username:</label>
-                    <input type="text" class="form-control" name="txtUsername" required value="VIS00000009" >
+                    <input type="text" class="form-control" name="txtUsername" required  >
                 </div>
                 <div class="mb-3">
                     <label for="" style="float:left">Password:</label>
-                    <input type="password" class="form-control" name="txtPassword" required value="admin" >
+                    <input type="password" class="form-control" name="txtPassword" required  >
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" style="width: 200px;">
@@ -161,10 +161,16 @@
         let UserObj = {};
         /////////////////
 
+        $("#main").on("submit", "#frmSearchVisitLogs", function(event){
+            event.preventDefault();
+            loadRecentVisitations();
+        });
+
         $("#main").on('click', '#btnDownloadQR', function(){
 			// ReImg.fromCanvas(document.getElementById('cvsQR')).downloadPng();
             let $img = document.getElementById('cvsQR').toDataURL();
-            let url = localStorage.getItem('APIURL_Resident') + "/API/qrrender.php";
+            let url = localStorage.getItem('APIURL_Visitor') + "/API/qrrender.php";
+            console.log(url);
             let data = {QRCode : $img, QRCodeText : $("#qrcodeString").html()};
             $.post(url, data, function(res){
                 const link = document.createElement("a");
@@ -292,12 +298,22 @@
             $.get("homepage.html", function(data){
                 $("#main").html(data);
                 $("#mainGreetUsername").html(UserObj.FirstName);
-                loadRecentVisitations();
+                var date = new Date();
+                var currentDate = date.toISOString().substring(0,10);
+                console.log(currentDate);
+                $("#frmSearchVisitLogs input[name=txtDateFrom]").val(currentDate);
+                $("#frmSearchVisitLogs input[name=txtDateTo]").val(currentDate);
+                loadVisitedHouseHolds();
+                setTimeout(() => {
+                    loadForApprovalVisitations();
+                    loadRecentVisitations();
+                }, 500);
             });
         }
 
         function loadQRCodePage(){
             $.get("QRCode.html", function(data){
+                
                 $("#main").html(data);
                 $("#qrcode").qrcode({
 						text : UserObj.QRCode,
@@ -309,24 +325,71 @@
             });
         }
 
+        function loadForApprovalVisitations(){
+            let obj = JSON.parse(localStorage.getItem("UserObj_Visitor"));
+            let url = localStorage.getItem('APIURL_Visitor') + '/API/GetForApprovalVisitApplications.php';
+            $.get(url, {ID: obj.DataCenterID},  function(res){
+                let $list = $("#visitForApproval");
+                $list.html("");
+                $.each(res, function(index, value){
+                    $list.append(`  <li id="`+ value.VLID +`" class="list-group-item">
+                                        <div class="row">
+                                            <p>HouseHold : <strong>`+ value.HouseHoldName +`</strong></p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-6 m-0">Request Date : `+ value.RequestDateTime +`</p>
+                                            |
+                                            <p class="col-5 m-0">Status : `+ value.VisitStatus +`</p>
+                                        </div>
+                                    </li>`)
+                });
+                if(res.length == 0){
+                    $list.html("No Records Found");
+                }
+            }, 'json');
+        }
+
+        function loadVisitedHouseHolds(){
+            let obj = JSON.parse(localStorage.getItem("UserObj_Visitor"));
+            let url = localStorage.getItem('APIURL_Visitor') + '/API/GetVisitedHouseHolds.php';
+            $.get(url, {ID : obj.DataCenterID}, function(res){
+                $cbo = $(document).find("#frmSearchVisitLogs select[name=cboVisitedHouseHolds]");
+                console.log($cbo);
+                $cbo.html("");
+                $cbo.append(`<option value="0" selected >All</option>`)
+                $.each(res, function(indx, value){
+                    $cbo.append(`<option value="`+ value.HouseHoldID +`" >`+ value.HouseHoldName +`</option>`);
+                });
+            }, 'json');
+        }
+
         function loadRecentVisitations(){
             let obj = JSON.parse(localStorage.getItem("UserObj_Visitor"));
-            let url = localStorage.getItem('APIURL_Visitor') + "/API/GetVisitorLogs.php?ID=" + obj.DataCenterID;
-            $.get(url, function(res){
+            let DateFrom = $(document).find("#frmSearchVisitLogs input[name=txtDateFrom]").val();
+            let DateTo = $(document).find("#frmSearchVisitLogs input[name=txtDateTo]").val();
+            let HouseHold = $(document).find("#frmSearchVisitLogs select[name=cboVisitedHouseHolds]").val();
+            console.log(DateFrom);
+            let url = localStorage.getItem('APIURL_Visitor') + '/API/GetVisitorLogs.php';
+            let data = {ID: obj.DataCenterID, DateFrom : DateFrom, DateTo : DateTo, HouseHoldID : HouseHold};
+            console.log(data);
+            $.get(url, data, function(res){
                 let $list = $("#visitLogsList");
                 $list.html("");
                 $.each(res, function(index, value){
                     $list.append(`  <li id="`+ value.VLID +`" class="list-group-item">
                                         <div class="row">
-                                            <p><strong>`+ value.HouseHoldName +`</strong></p>
+                                            <p><strong>HouseHold :`+ value.HouseHoldName +`</strong></p>
                                         </div>
                                         <div class="row">
-                                            <p class="col-6 m-0">`+ value.RequestDateTime +`</p>
+                                            <p class="col-6 m-0">Request Date :`+ value.RequestDateTime +`</p>
                                             |
-                                            <p class="col-5 m-0">`+ value.VisitStatus +`</p>
+                                            <p class="col-5 m-0">Status :`+ value.VisitStatus +`</p>
                                         </div>
                                     </li>`)
                 });
+                if(res.length == 0){
+                    $list.html("No Records Found");
+                }
             }, 'json');
         }
     
