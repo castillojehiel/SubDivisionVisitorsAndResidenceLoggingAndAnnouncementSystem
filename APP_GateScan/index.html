@@ -55,11 +55,11 @@
             <form id="frmLogin" style="width:80%; margin:auto" >
                 <div class="mb-3">
                     <label for="" style="float:left">Username:</label>
-                    <input type="text" class="form-control" name="txtUsername" required value="dev01" >
+                    <input type="text" class="form-control" name="txtUsername" required value="admin1" >
                 </div>
                 <div class="mb-3">
                     <label for="" style="float:left">Password:</label>
-                    <input type="password" class="form-control" name="txtPassword" required value="dev01" >
+                    <input type="password" class="form-control" name="txtPassword" required value="admin1" >
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-primary" style="width: 200px;">
@@ -201,6 +201,10 @@
         let currentNavItemID = "";
         let UserObj = {};
         /////////////////
+
+        $("#main").on('click', "#btnRefreshRecentLogs", function(){
+            loadRecentVisitorLogs();
+        });
 
         $("#main").on('click', "#btnLogout", function(){
             let confirmres = confirm("Are you sure you want to logout account?");
@@ -435,6 +439,40 @@
 
         
         ///////////////////////
+
+        function loadRecentVisitorLogs(){
+            let url = localStorage.getItem('APIURL_GateScan') + "/API/GetRecentVisitorLogs.php";
+            let obj = JSON.parse(localStorage.getItem("UserObj"));
+            let data = {UserID : obj.UserID };
+            $.get(url, data, function(res){
+                let $list = $("#lstRecentLogs");
+                $list.html("");
+                if(res.length > 0){
+                    $.each(res, function(index, value){
+                        $list.append(` 
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <label class="form-label" style="margin: 0 auto !important;">Name: <strong>`+ value.VisitorName +`</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="form-label" style="margin: 0 auto !important;">HouseHold: <strong>`+ value.HouseHoldName +`</strong></label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-label" style="margin: 0 auto !important;">Req. Date/Time: <strong>`+ value.RequestDateTime +`</strong></label>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label" style="margin: 0 auto !important;">Status: <strong>`+ value.VisitStatus +`</strong></label>
+                                        </div>
+                                    </div>
+                                </li>`);
+                    });
+                }
+                else{
+                    $list.html("No recent logs found...");
+                }
+            }, 'json');
+        }
         
         function loadHomepage(){
             $.get("homepage.html", function(data){
@@ -456,6 +494,7 @@
                 var currentDate = date.toISOString().substring(0,10);
                 $("#frmSearchVisitorLog input[name=txtDateFrom]").val(currentDate);
                 $("#frmSearchVisitorLog input[name=txtDateTo]").val(currentDate);
+                loadRecentVisitorLogs();
             });
         }
         

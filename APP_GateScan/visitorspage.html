@@ -5,6 +5,19 @@
 
         <h5>Visitor logs</h5>
         <hr>
+
+        <h6>Recent Logs 
+            <button id="btnRefreshRecentLogs" class="btn btn-warning" style="float: right;" >
+                <span class="fas fa-sync"></span>
+            </button>
+        </h6>
+        <div class="row" style="margin: 20px 0 0 0 !important;">
+            <ul id="lstRecentLogs" class="list-group" style="max-height: 300px; overflow: auto;">
+                
+            </ul>
+        </div>
+        <hr style="margin: 0 0 15px 0;">
+        <h6>All Logs</h6>
         <div class="row">
             <form id="frmSearchVisitorLog">
                 <div class="form-group row mb-3">
