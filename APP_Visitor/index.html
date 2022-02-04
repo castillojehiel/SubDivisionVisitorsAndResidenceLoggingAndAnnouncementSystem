@@ -34,6 +34,7 @@
             width: 100%;
             background: white;
             z-index: 2001;
+            overflow: auto;
         }
         #mainCard{
             height: auto;
@@ -79,6 +80,12 @@
             </form>
             
         </div>
+        <div class="row">
+            <button id="btnRegisterNew" type="button" class="btn btn-link">
+                New User? Sign up...
+            </button>
+        </div>
+        <hr style="margin: 10px 20px">
         <div class="row">
             <button id="btnChangeConnection" type="button" class="btn btn-link">
                 Change Connection
@@ -160,6 +167,30 @@
         let currentNavItemID = "";
         let UserObj = {};
         /////////////////
+
+        $(document).on("submit", "#frmRegisterNewUser", function(event){
+            event.preventDefault();
+            let data = $(this).serialize();
+            let url = localStorage.getItem('APIURL_Visitor') + "/API/RegisterNewUser.php";
+            $.post(url, data, function(res){
+                if(res.result){
+                    alert("You have been successfully registered. Please login with registered email as username and first name as password.");
+                    window.location.reload();
+                }
+                else{
+                    alert("Failed to register new user. Please try again.")
+                }
+            }, 'json')
+            .fail( function(xhr, status, message){
+                alert("Error has occured. " + message);
+            });
+        });
+
+        $("#btnRegisterNew").click( function(){
+            $.get("userRegistration.html", function(data){
+                $("body").html(data);
+            });
+        })
 
         $("#main").on("submit", "#frmSearchVisitLogs", function(event){
             event.preventDefault();

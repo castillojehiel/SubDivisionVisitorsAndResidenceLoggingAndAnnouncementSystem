@@ -77,15 +77,15 @@
 	}
 
 	////send SMS
-	// if($isWhiteListed){
-	// 	SendSMSToHouseHoldContactPersons($HouseholdID, "A visitor you have whitelisted has been allowed access on gate. Check app to see full details.");
-	// }
-	// else if($isBlackListed){
-	// 	SendSMSToHouseHoldContactPersons($HouseholdID, "A visitor you have blacklisted has been rejected access on gate. Check app to see full details.");
-	// }
-	// else if($sql){
-	// 	SendSMSToHouseHoldContactPersons($HouseholdID, "A visitor is requiring approval to be allowed gate access. Please check on app to see full details and select appropriate action.");
-	// }
+	if($isWhiteListed){
+		SendSMSToHouseHoldContactPersons($HouseholdID, "A visitor you have whitelisted has been allowed access on gate. Check app to see full details.");
+	}
+	else if($isBlackListed){
+		SendSMSToHouseHoldContactPersons($HouseholdID, "A visitor you have blacklisted has been rejected access on gate. Check app to see full details.");
+	}
+	else if($sql){
+		SendSMSToHouseHoldContactPersons($HouseholdID, "A visitor is requiring approval to be allowed gate access. Please check on app to see full details and select appropriate action.");
+	}
 
     echo json_encode(array("result" => $sql, 'isWhiteListed' => $isWhiteListed, 'isBlackListed' => $isBlackListed));
 

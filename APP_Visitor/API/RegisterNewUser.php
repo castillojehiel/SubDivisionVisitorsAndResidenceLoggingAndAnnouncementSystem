@@ -9,10 +9,8 @@
     $ContactNo = $_POST["txtContactNo"];
     $EmailAddress = $_POST["txtEmailAddress"];
     $Gender = $_POST["chkGender"];
-    $CreatedBy = $_POST["txtCreatedBy"];
-    $HouseHoldID = $_POST["txtHouseHoldID"];
 
-    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedBy, CreatedDateTime, HouseHoldID, UserpPass)
+    $query = "INSERT INTO Datacenter (FirstName, MiddleName, LastName, Suffix, Gender, Birthdate, ContactNo, EmailAddress, isActive, isResident, CreatedDateTime, HouseHoldID, UserPass)
         VALUES(
                 '$FirstName',
                 '$MiddleName',
@@ -23,19 +21,18 @@
                 '$ContactNo',
                 '$EmailAddress',
                 1,
-                1,
-                '$CreatedBy',
+                0,
                 CURRENT_TIMESTAMP(),
-                '$HouseHoldID',
-                '$UserPass'
+                '0',
+                '$FirstName'
         )";
 
     $sql = $conn -> query($query);
     $id = $conn -> insert_id;
     //build qr code
-    $qrCode = "RES" . sprintf('%08d', $id);
+    $qrCode = "VIS" . sprintf('%08d', $id);
 
-    $query = "UPDATE DataCenter SET QRCode = '$qrCode' WHERE DataCenterID = '$id'";
+    $query = "UPDATE DataCenter SET QRCode = '$qrCode', CreatedBy = '$id' WHERE DataCenterID = '$id'";
     $sql2 = $conn -> query($query);
 
     echo json_encode(array("result" => $sql));
